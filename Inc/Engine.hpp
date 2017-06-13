@@ -10,7 +10,7 @@ class Engine
         bool game_state;
         unsigned int Froot[2];
         unsigned int s_Froot[2];
-        vector <Snek> *snek;
+        std::vector <Snek> *snek;
         unsigned int win_x;
         unsigned int win_y;
         bool froot;
@@ -25,8 +25,8 @@ class Engine
 
         Engine &operator=(Engine const &obj);
 
-        void user_input(argc, argv);
-        void init(int argc, char **argc);
+        void user_input(int argc, char **argv);
+        void init(int argc, char **argv);
         void game_loop();
         void render();
 };

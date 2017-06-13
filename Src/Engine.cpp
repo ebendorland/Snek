@@ -1,15 +1,36 @@
 #include "../Inc/Engine.hpp"
 
-Engine::Engine();
-Engine::Engine(unsigned int win_X, unsigned int win_Y);
-Engine::Engine(Engine const &obj);
-Engine::~Engine();
+Engine::Engine()
+{
 
-Engine &Engine::operator=(Engine const &obj);
+}
 
-void Engine::user_input(argc, argv);
+Engine::Engine(unsigned int win_X, unsigned int win_Y)
+{
 
-void Engine::init(int argc, char **argc)
+}
+
+Engine::Engine(Engine const &obj)
+{
+
+}
+
+Engine::~Engine()
+{
+
+}
+
+Engine &Engine::operator=(Engine const &obj)
+{
+    return (*this);
+}
+
+void Engine::user_input(int argc, char **argv)
+{
+
+}
+
+void Engine::init(int argc, char **argv)
 {
     this->game_state = false;
     this->Froot[0] = 0;
@@ -31,4 +52,7 @@ void Engine::game_loop()
     }
 }
 
-void Engine::render();
+void Engine::render()
+{
+
+}

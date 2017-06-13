@@ -20,6 +20,6 @@ class Snek
         void SetX( unsigned int x);
         void SetY( unsigned int y);
 
-        unsigned int GetX();
-        unsigned int GetY();
+        unsigned int GetX() const;
+        unsigned int GetY() const;
 };

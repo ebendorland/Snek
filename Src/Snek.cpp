@@ -9,7 +9,7 @@ Snek::Snek()
 Snek::Snek(unsigned int x, unsigned int y)
 {
     this->snek_x = x;
-    this->snke_y = y;
+    this->snek_y = y;
 }
 
 Snek::Snek(Snek const &obj)
@@ -40,12 +40,12 @@ void Snek::SetY( unsigned int y)
     this->snek_y = y;
 }
 
-unsigned int Snek::GetX()
+unsigned int Snek::GetX() const
 {
     return (this->snek_x);
 }
 
-unsigned int Snek::GetY()
+unsigned int Snek::GetY() const
 {
     return (this->snek_y);
 }
