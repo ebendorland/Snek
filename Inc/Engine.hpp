@@ -1,9 +1,12 @@
 #pragma once
 
 #include <iostream>
+#include <unistd.h>
 #include <vector>
 #include <ctype.h>
 #include <stdio.h>
+//#include <conio.h>
+#include <curses.h>
 #include <stdlib.h>
 #include "Snek.hpp"
 
@@ -40,4 +43,6 @@ class Engine
         void init_map();
         void add_placeholders();
         void create_snek();
+        void move_snek();
+        int kbhit();
 };

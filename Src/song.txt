@@ -1,2 +1,13 @@
 24:30 min
 tput reset
+
+references:
+
+https://stackoverflow.com/questions/19875136/continuous-keyboard-input-in-c
+https://askubuntu.com/questions/25077/how-to-really-clear-the-terminal
+http://www.cplusplus.com/reference/cctype/isdigit/
+https://stackoverflow.com/questions/8248714/how-can-i-tell-if-a-multi-dimensional-array-has-not-been-assigned-to
+https://www.ics.uci.edu/~dan/class/165/notes/memory.html
+http://www.cplusplus.com/forum/beginner/89434/
+http://www.cprogramming.com/fod/kbhit.html
+http://forums.fedoraforum.org/showthread.php?t=172337
