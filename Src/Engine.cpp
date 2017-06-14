@@ -180,6 +180,8 @@ void Engine::create_snek()
 
 void Engine::init(int argc, char **argv)
 {
+    //initscr();
+    //nodelay(stdscr,true);
     std::cout << argc << " " << argv[1] << std::endl;
     this->game_state = false;
     this->Froot[0] = 0;
@@ -197,15 +199,39 @@ void Engine::init(int argc, char **argv)
     init_map();
 }
 
+int Engine::mygetch( )
+{
+  struct termios oldt,
+                 newt;
+  int            ch;
+  tcgetattr( STDIN_FILENO, &oldt );
+  newt = oldt;
+  newt.c_lflag &= ~( ICANON | ECHO );
+  tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+  ch = getchar();
+  tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+  return ch;
+}
+
 void Engine::move_snek()
 {
 
-    //char input = getch();
-    /*switch (input)
+    char input = mygetch();
+    switch (input)
     {
         case KEY_UP:
-
-    }*/
+            this->snek_dir = 1;
+            break ;
+        case KEY_DOWN:
+            this->snek_dir = 3;
+            break ;
+        case KEY_RIGHT:
+            this->snek_dir = 2;
+            break ;
+        case KEY_LEFT:
+            this->snek_dir = 4;
+            break ;
+    }
 
     for (int count = 0; count < this->snek.size(); count++)
     {

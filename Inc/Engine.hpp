@@ -49,4 +49,5 @@ class Engine
         void check_colision();
         void spawn_froot();
         void ClearScreen();
+        int mygetch();
 };
