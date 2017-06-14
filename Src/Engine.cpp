@@ -61,7 +61,7 @@ void Engine::check_colision()
 
 void Engine::spawn_froot()
 {
-    
+
 }
 
 void Engine::add_placeholders()
@@ -227,6 +227,17 @@ void Engine::move_snek()
 
 }
 
+void Engine::ClearScreen()
+{
+    if (!cur_term)
+    {
+        int result;
+        setupterm( NULL, STDOUT_FILENO, &result );
+        if (result <= 0) return;
+    }
+    putp( tigetstr( "clear" ) );
+}
+
 void Engine::game_loop()
 {
     this->game_state = true;
@@ -236,8 +247,9 @@ void Engine::game_loop()
     {
 		move_snek();
         add_placeholders();
+        ClearScreen();
 		render();
-		usleep(10000);
+		usleep(100000);
 	}
 }
 

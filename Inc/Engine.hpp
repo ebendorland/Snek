@@ -8,6 +8,7 @@
 //#include <conio.h>
 #include <curses.h>
 #include <stdlib.h>
+#include <term.h>
 #include "Snek.hpp"
 
 #define DEFAULT_WIN_X 60
@@ -47,4 +48,5 @@ class Engine
         void move_snek();
         void check_colision();
         void spawn_froot();
+        void ClearScreen();
 };
