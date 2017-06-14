@@ -43,7 +43,25 @@ int Engine::check_digit(char *str)
 
 void Engine::check_colision()
 {
+    int hed_x = this->snek[0]->GetX();
+    int hed_y = this->snek[0]->GetY();
 
+    if (hed_y == 0 || hed_y == this->win_y + 2 || hed_x == 0 || hed_y == this->win_x + 2)
+    {
+        std::cout << "Colided With a Wall" << std::endl;
+        this->game_state = false;
+    }
+
+    for (int count = 1; count < this->snek.size(); count++)
+    {
+        if (this->snek[count]->GetY() == hed_y && this->snek[count]->GetX() == hed_x)
+            this->game_state = false;
+    }
+}
+
+void Engine::spawn_froot()
+{
+    
 }
 
 void Engine::add_placeholders()
@@ -204,6 +222,8 @@ void Engine::move_snek()
         else if (4 == this->snek_dir) // LEFT
             this->snek[count]->SetX(tmp_x - 1);
     }
+
+    check_colision();
 
 }
 

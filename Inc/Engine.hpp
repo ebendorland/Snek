@@ -46,4 +46,5 @@ class Engine
         void create_snek();
         void move_snek();
         void check_colision();
+        void spawn_froot();
 };
