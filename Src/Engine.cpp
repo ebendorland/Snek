@@ -55,6 +55,20 @@ void Engine::add_placeholders()
         this->map[tmp_y][0] = '/';
         this->map[tmp_y][(this->win_x + 2) - 1] = '/';
 	}
+
+
+    int tmp_x = 0;
+    int tmp_y = 0;
+    for (int count = 0; count < 4; count++)
+    {
+        tmp_x = this->snek[count]->GetX();
+        tmp_y = this->snek[count]->GetY();
+
+        if (this->snek[count]->GetIsHed())
+            this->map[tmp_y][tmp_x] = '^';
+        else
+            this->map[tmp_y][tmp_x] = '!';
+    }
 }
 
 void Engine::user_input(int argc, char **argv)
@@ -129,8 +143,15 @@ void Engine::create_snek()
 {
     for (int count = 0; count < 4; count++)
     {
-        this->snek.push_back(new Snek());
+        this->snek.push_back(new Snek((this->win_x / 2), ((this->win_y / 2) + count), false));
+        if (count == 0)
+            this->snek[count]->SetIsHed(true);
         this->snake_len += 1;
+    }
+
+    for (int count = 0; count < 4; count++)
+    {
+        std::cout << "x " << snek[count]->GetX() << " y " << snek[count]->GetY() << " head " << snek[count]->GetIsHed() << std::endl;
     }
 }
 
