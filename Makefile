@@ -2,7 +2,7 @@ NAME=Nibbler
 
 CLANG=clang++
 
-CFLAGS= 
+CFLAGS=
 
 RM=rm -f
 
@@ -21,3 +21,11 @@ $(NAME):
 	@echo "Compilation was successful!"
 
 all: $(NAME)
+
+clean:
+	@rm -rf $(OBJ)
+
+fclean: clean
+	@rm -rf $(NAME)
+
+re: fclean all

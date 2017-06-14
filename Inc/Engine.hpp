@@ -2,7 +2,13 @@
 
 #include <iostream>
 #include <vector>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "Snek.hpp"
+
+#define DEFAULT_WIN_X 60
+#define DEFAULT_WIN_Y 30
 
 class Engine
 {
@@ -10,12 +16,13 @@ class Engine
         bool game_state;
         unsigned int Froot[2];
         unsigned int s_Froot[2];
-        std::vector <Snek> *snek;
+        std::vector < Snek * > snek;
         unsigned int win_x;
         unsigned int win_y;
         bool froot;
         bool s_froot;
-        int **map;
+        char **map;
+        unsigned int snake_len;
 
     public:
         Engine();
@@ -29,4 +36,8 @@ class Engine
         void init(int argc, char **argv);
         void game_loop();
         void render();
+        int check_digit(char *str);
+        void init_map();
+        void add_placeholders();
+        void create_snek();
 };
