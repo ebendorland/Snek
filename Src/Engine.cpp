@@ -17,7 +17,7 @@ Engine::Engine(Engine const &obj)
 
 Engine::~Engine()
 {
-    for (int count = 0; count < this->snake_len; count++)
+    for (unsigned int count = 0; count < this->snek.size(); count++)
     {
         delete this->snek[count];
     }
@@ -32,13 +32,18 @@ int Engine::check_digit(char *str)
 {
     int count = 0;
 
-    while (str[count] != NULL)
+    while (str[count] != '\0')
     {
         if (!(isdigit(str[count])))
             return (0);
         count++;
     }
     return (1);
+}
+
+void Engine::check_colision()
+{
+
 }
 
 void Engine::add_placeholders()
@@ -59,7 +64,7 @@ void Engine::add_placeholders()
 
     int tmp_x = 0;
     int tmp_y = 0;
-    for (int count = 0; count < 4; count++)
+    for (int count = 0; count < this->snek.size(); count++)
     {
         tmp_x = this->snek[count]->GetX();
         tmp_y = this->snek[count]->GetY();
@@ -146,7 +151,7 @@ void Engine::create_snek()
         this->snek.push_back(new Snek((this->win_x / 2), ((this->win_y / 2) + count), false));
         if (count == 0)
             this->snek[count]->SetIsHed(true);
-        this->snake_len += 1;
+        //this->snek_len += 1;
     }
 
     for (int count = 0; count < 4; count++)
@@ -160,7 +165,8 @@ void Engine::init(int argc, char **argv)
     std::cout << argc << " " << argv[1] << std::endl;
     this->game_state = false;
     this->Froot[0] = 0;
-    this->snake_len = 0;
+    //this->snek_len = 0;
+    this->snek_dir = 1;
     this->Froot[1] = 0;
     this->s_Froot[0] = 0;
     this->s_Froot[1] = 0;
@@ -173,50 +179,32 @@ void Engine::init(int argc, char **argv)
     init_map();
 }
 
-int Engine::kbhit(void)
-{
-  struct timeval tv;
-  fd_set read_fd;
-
-  /* Do not wait at all, not even a microsecond */
-  tv.tv_sec=0;
-  tv.tv_usec=0;
-
-  /* Must be done first to initialize read_fd */
-  FD_ZERO(&read_fd);
-
-  /* Makes select() ask if input is ready:
-   * 0 is the file descriptor for stdin    */
-  FD_SET(0,&read_fd);
-
-  /* The first parameter is the number of the
-   * largest file descriptor to check + 1. */
-  if(select(1, &read_fd,NULL, /*No writes*/NULL, /*No exceptions*/&tv) == -1)
-    return 0;  /* An error occured */
-
-  /*  read_fd now holds a bit map of files that are
-   * readable. We test the entry for the standard
-   * input (file 0). */
-
-if(FD_ISSET(0,&read_fd))
-    /* Character pending on stdin */
-    return 1;
-
-  /* no characters were pending */
-  return 0;
-}
-
 void Engine::move_snek()
 {
-    int move_x = 0;
-    int move_y = 0;
 
-    char input = getch();
+    //char input = getch();
     /*switch (input)
     {
         case KEY_UP:
 
     }*/
+
+    for (int count = 0; count < this->snek.size(); count++)
+    {
+        int tmp_x = this->snek[count]->GetX();
+        int tmp_y = this->snek[count]->GetY();
+        this->map[tmp_y][tmp_x] = ' ';
+
+        if (1 == this->snek_dir) // UP
+            this->snek[count]->SetY(tmp_y - 1);
+        else if (2 == this->snek_dir) // RIGHT
+            this->snek[count]->SetX(tmp_x + 1);
+        else if (3 == this->snek_dir) // DOWN
+            this->snek[count]->SetY(tmp_y + 1);
+        else if (4 == this->snek_dir) // LEFT
+            this->snek[count]->SetX(tmp_x - 1);
+    }
+
 }
 
 void Engine::game_loop()
@@ -228,12 +216,19 @@ void Engine::game_loop()
     {
 		move_snek();
         add_placeholders();
-		//render_scene();
+		render();
 		usleep(10000);
 	}
 }
 
 void Engine::render()
 {
-
+    for (int tmp_y = 0; tmp_y < (this->win_y + 2); tmp_y++)
+	{
+        for (int tmp_x = 0; tmp_x < this->win_x + 2; tmp_x++)
+        {
+            std::cout << this->map[tmp_y][tmp_x];
+        }
+        std::cout << std::endl;
+	}
 }

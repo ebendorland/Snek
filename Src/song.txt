@@ -11,3 +11,4 @@ https://www.ics.uci.edu/~dan/class/165/notes/memory.html
 http://www.cplusplus.com/forum/beginner/89434/
 http://www.cprogramming.com/fod/kbhit.html
 http://forums.fedoraforum.org/showthread.php?t=172337
+https://stackoverflow.com/questions/496664/c-dynamic-shared-library-on-linux

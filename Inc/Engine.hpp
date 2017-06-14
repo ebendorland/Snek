@@ -25,7 +25,8 @@ class Engine
         bool froot;
         bool s_froot;
         char **map;
-        unsigned int snake_len;
+        //unsigned int snek_len;
+        int snek_dir;
 
     public:
         Engine();
@@ -44,5 +45,5 @@ class Engine
         void add_placeholders();
         void create_snek();
         void move_snek();
-        int kbhit();
+        void check_colision();
 };
