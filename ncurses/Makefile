@@ -1,31 +1,31 @@
-NAME=Nibbler
+CLANG =	clang++
 
-CLANG=clang++
+NAME = ncurses.so
 
-CFLAGS=
+CFLAGS = -Wall -Werror -Wextra
 
-RM=rm -f
+NCURSES = -lncurses
 
-PATH_SRC= ./Src/
+HEADER = ncurses.hpp
 
-PATH_HD= -I Inc/
+SRC = ../Src/libs.cpp ncurses.cpp
 
-SRC = $(PATH_SRC)main.cpp $(PATH_SRC)Engine.cpp $(PATH_SRC)Snek.cpp
+OBJ =	$(SRC:.cpp=.cpp.o)
 
-OBJ = main.o Engine.o Snek.o
-
-$(NAME):
-	@echo "Compiling binaries..."
-	@$(CLANG) -std=c++11 $(CFLAGS) $(PATH_HD) -c $(SRC)
-	@$(CLANG) -std=c++11 -o $(NAME) $(OBJ)
-	@echo "Compilation was successful!"
+%.cpp.o: %.cpp
+	$(CLANG) -c $(CFLAGS) -fpic $< -o $@
 
 all: $(NAME)
 
+$(NAME): $(OBJ) $(HEADER)
+	$(CLANG) $(CFLAGS) $(NCURSES) -shared -Qunused-arguments -o $(NAME) $(OBJ)
+
 clean:
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
