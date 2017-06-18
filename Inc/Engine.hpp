@@ -5,11 +5,13 @@
 #include <vector>
 #include <ctype.h>
 #include <stdio.h>
+#include <dlfcn.h>
 //#include <conio.h>
 #include <curses.h>
 #include <stdlib.h>
 #include <term.h>
 #include "Snek.hpp"
+#include "libs.hpp"
 
 #define DEFAULT_WIN_X 60
 #define DEFAULT_WIN_Y 30
@@ -17,6 +19,8 @@
 class Engine
 {
     private:
+        dynamic_libs *lib;
+        void *handle;
         bool game_state;
         unsigned int Froot[2];
         unsigned int s_Froot[2];
@@ -26,6 +30,7 @@ class Engine
         bool froot;
         bool s_froot;
         char **map;
+        int steps;
         //unsigned int snek_len;
         int snek_dir;
 
@@ -40,7 +45,6 @@ class Engine
         void user_input(int argc, char **argv);
         void init(int argc, char **argv);
         void game_loop();
-        void render();
         int check_digit(char *str);
         void init_map();
         void add_placeholders();
@@ -49,5 +53,7 @@ class Engine
         void check_colision();
         void spawn_froot();
         void ClearScreen();
-        int mygetch();
+        //int mygetch();
+        void load_lib(std::string const &lib_path);
+        void close_lib();
 };

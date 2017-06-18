@@ -17,7 +17,7 @@ OBJ = main.o Engine.o Snek.o
 $(NAME):
 	@echo "Compiling binaries..."
 	@$(CLANG) -std=c++11 $(CFLAGS) $(PATH_HD) -c $(SRC)
-	@$(CLANG) -std=c++11 -o $(NAME) $(OBJ) -lncurses
+	@$(CLANG) -std=c++11 -o $(NAME) $(OBJ) -ldl -lncurses
 	@echo "Compilation was successful!"
 
 all: $(NAME)

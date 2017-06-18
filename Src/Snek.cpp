@@ -5,13 +5,15 @@ Snek::Snek()
     this->snek_x = 0;
     this->snek_y = 0;
     this->is_hed = false;
+    this->part_dir = 0;
 }
 
-Snek::Snek(unsigned int x, unsigned int y, bool tmp)
+Snek::Snek(unsigned int x, unsigned int y, bool tmp, unsigned int dir)
 {
     this->snek_x = x;
     this->snek_y = y;
     this->is_hed = tmp;
+    this->part_dir = dir;
 }
 
 Snek::Snek(Snek const &obj)
@@ -47,6 +49,11 @@ void Snek::SetY( unsigned int y)
     this->snek_y = y;
 }
 
+void Snek::SetPartDir( unsigned int dir)
+{
+    this->part_dir = dir;
+}
+
 bool Snek::GetIsHed() const
 {
     return (this->is_hed);
@@ -60,4 +67,9 @@ unsigned int Snek::GetX() const
 unsigned int Snek::GetY() const
 {
     return (this->snek_y);
+}
+
+unsigned int Snek::GetPartDir() const
+{
+    return (this->part_dir);
 }
