@@ -84,9 +84,14 @@ void Engine::check_colision()
         else if (4 == this->snek_dir) // LEFT
             tmp_x -= 1;
 
-        this->map[0][0] = 'l';
         this->snek.push_back(new Snek(tmp_x, tmp_y, false, tmp_dir));
         this->froot = false;
+    }
+
+    if (hed_x == this->s_Froot[0] && hed_y == this->s_Froot[1])
+    {
+        this->map[this->s_Froot[1]][this->s_Froot[0]] = ' ';
+        this->s_froot = false;
     }
 }
 
@@ -104,6 +109,26 @@ void Engine::spawn_froot()
             count = 0;
         }
     }
+
+    if (this->steps % 80)
+    {
+        this->s_Froot[0] = rand() % (int)this->win_x + 1;
+        this->s_Froot[1] = rand() % (int)this->win_y + 1;
+
+        for (int count = 0; count < this->snek.size(); count++)
+        {
+            if (this->s_Froot[0] == this->snek[count]->GetX() && this->s_Froot[1] == this->snek[count]->GetY())
+            {
+                this->s_Froot[0] = rand() % this->win_x + 1;
+                this->s_Froot[1] = rand() % this->win_y + 1;
+                count = 0;
+            }
+        }
+
+        this->steps = 0;
+        this->s_froot = true;
+    }
+
     this->froot = true;
 }
 
@@ -113,6 +138,10 @@ void Engine::add_placeholders()
     int tmp_y = 0;
 
     this->map[this->Froot[1]][this->Froot[0]] = 'p';
+
+    if (this->s_froot == true)
+        this->map[this->s_Froot[1]][this->s_Froot[0]] = 'j';
+
     for (int count = 0; count < this->snek.size(); count++)
     {
         tmp_x = this->snek[count]->GetX();

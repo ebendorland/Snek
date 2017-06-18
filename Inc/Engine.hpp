@@ -6,7 +6,6 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <dlfcn.h>
-//#include <conio.h>
 #include <curses.h>
 #include <stdlib.h>
 #include <term.h>
@@ -31,7 +30,6 @@ class Engine
         bool s_froot;
         char **map;
         int steps;
-        //unsigned int snek_len;
         int snek_dir;
 
     public:
@@ -52,8 +50,6 @@ class Engine
         void move_snek();
         void check_colision();
         void spawn_froot();
-        void ClearScreen();
-        //int mygetch();
         void load_lib(std::string const &lib_path);
         void close_lib();
 };
