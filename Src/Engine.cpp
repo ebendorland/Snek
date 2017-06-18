@@ -17,6 +17,13 @@ Engine::Engine(Engine const &obj)
 
 Engine::~Engine()
 {
+    for (int y = 0; y < this->win_y + 2; y++)
+    {
+        delete this->map[y];
+    }
+
+    delete[ ] this->map;
+
     for (unsigned int count = 0; count < this->snek.size(); count++)
     {
         delete this->snek[count];
@@ -194,7 +201,6 @@ void Engine::create_snek()
         this->snek.push_back(new Snek((this->win_x / 2), ((this->win_y / 2) + count), false, 1));
         if (count == 0)
             this->snek[count]->SetIsHed(true);
-        //this->snek_len += 1;
     }
 }
 
@@ -203,7 +209,6 @@ void Engine::init(int argc, char **argv)
     this->game_state = false;
     this->Froot[0] = 0;
     this->steps = 0;
-    //this->snek_len = 0;
     this->snek_dir = 1;
     this->Froot[1] = 0;
     this->s_Froot[0] = 0;
@@ -260,17 +265,6 @@ void Engine::move_snek()
     check_colision();
 }
 
-/*void Engine::ClearScreen()
-{
-    if (!cur_term)
-    {
-        int result;
-        setupterm( NULL, STDOUT_FILENO, &result );
-        if (result <= 0) return;
-    }
-    putp( tigetstr( "clear" ) );
-}*/
-
 void Engine::game_loop()
 {
     this->game_state = true;
@@ -292,8 +286,6 @@ void Engine::game_loop()
 
 void Engine::load_lib(std::string const &lib_path)
 {
-    //Dynamic_Libs *(*create) ();
-
     this->handle = dlopen("./ncurses/ncurses.so", RTLD_LAZY);
 
     if (this->handle == NULL)
