@@ -36,17 +36,13 @@ int sdl::change_lib()
 
 void sdl::render(char **map)
 {
-    int x = 0;
-	int y = 0;
-
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
 	SDL_RenderClear( this->renderer );
-	while (y < this->max_y + 2)
+	for (int tmp_y = 0; tmp_y < this->max_y + 2; tmp_y++)
     {
-		x = 0;
-		while (x < this->max_x + 2)
+		for (int tmp_x = 0; tmp_x < this->max_x + 2; tmp_x++)
         {
-			switch (map[y][x])
+			switch (map[tmp_y][tmp_x])
             {
                 case '/':
                     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
@@ -67,17 +63,14 @@ void sdl::render(char **map)
                     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
                     break;
 			}
-			//this->draw_spot(x, y);
             SDL_Rect rectangle;
 
-            rectangle.x = x * 20.0f;
-            rectangle.y = y * 20.0f;
+            rectangle.x = tmp_x * 20.0f;
+            rectangle.y = tmp_y * 20.0f;
             rectangle.w = 20.0f;
             rectangle.h = 20.0f;
             SDL_RenderFillRect(this->renderer, &rectangle);
-			x++;
 		}
-		y++;
 	}
 	SDL_RenderPresent( this->renderer );
 }
