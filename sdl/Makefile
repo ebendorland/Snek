@@ -1,31 +1,12 @@
-CLANG =	clang++
-
+COMPILER = clang++ -o
 NAME = sdl.so
+SRCS = sdl.cpp ../Src/libs.cpp
+LIBS = $(shell sdl2-config --cflags --libs)
+FLAGS = -Wall -Werror -Wextra
 
-CFLAGS = -Wall -Werror -Wextra
-
-SDL = -w -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
-
-HEADER = sdl.hpp
-
-SRC = ../Src/libs.cpp sdl.cpp
-
-OBJ =	$(SRC:.cpp=.o)
-
-%.o: %.cpp
-	$(CLANG) -c $(CFLAGS) -fpic $< -o $@
-
-all: $(NAME)
-
-$(NAME): $(OBJ) $(HEADER)
-	$(CLANG) $(CFLAGS) $(SDL) -shared -Qunused-arguments -o $(NAME) $(OBJ)
+$(NAME):
+	$(COMPILER) $(NAME) $(SRCS) $(LIBS) $(FLAGS) -shared -fpic
 
 clean:
-	rm -rf $(OBJ)
-
-fclean: clean
-	rm -rf $(NAME)
-
-re: fclean all
-
-.PHONY: all clean fclean re
+	rm -f $(NAME)
+re: clean $(NAME)
