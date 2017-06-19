@@ -45,16 +45,16 @@ void sdl::render(char **map)
 			switch (map[tmp_y][tmp_x])
             {
                 case '/':
-                    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 211, 25, 125, 255);
                     break;
                 case '*':
                     SDL_SetRenderDrawColor(this->renderer, 123, 123, 234, 255);
                     break;
                 case '@':
-                    SDL_SetRenderDrawColor(this->renderer, 0, 255, 0, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 0, 255, 76, 255);
                     break;
                 case 'p':
-                    SDL_SetRenderDrawColor(this->renderer, 200, 200, 4, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 20, 98, 4, 255);
                     break;
                 case 'j':
                     SDL_SetRenderDrawColor(this->renderer, 45, 32, 34, 255);
