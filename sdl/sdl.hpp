@@ -7,6 +7,8 @@
 #include <iostream>
 #include "../Inc/libs.hpp"
 
+#define SCALE 20.0f
+
 class sdl : public dynamic_libs
 {
     private:

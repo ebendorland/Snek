@@ -23,9 +23,9 @@ void sdl::init(unsigned int &maxX,unsigned int &maxY)
      this->max_y = maxY;
      SDL_Init( SDL_INIT_EVERYTHING );
      SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
-     this->window = SDL_CreateWindow( "Snek", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, (maxX + 2) * 20.0f, (maxY + 2) * 20.0f, SDL_WINDOW_SHOWN );
+     this->window = SDL_CreateWindow( "Snek", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, (maxX + 2) * SCALE, (maxY + 2) * SCALE, SDL_WINDOW_SHOWN );
      this->renderer = SDL_CreateRenderer( this->window, -1, SDL_RENDERER_ACCELERATED );
-     SDL_RenderSetLogicalSize( this->renderer, (this->max_x + 2) * 20.0f, (this->max_y + 2) * 20.0f );
+     SDL_RenderSetLogicalSize( this->renderer, (this->max_x + 2) * SCALE, (this->max_y + 2) * SCALE );
      SDL_SetRenderDrawColor( this->renderer, 0, 0, 0, 255 );
 }
 
@@ -65,10 +65,10 @@ void sdl::render(char **map)
 			}
             SDL_Rect rectangle;
 
-            rectangle.x = tmp_x * 5.0f;
-            rectangle.y = tmp_y * 5.0f;
-            rectangle.w = 5.0f;
-            rectangle.h = 5.0f;
+            rectangle.x = tmp_x * SCALE;
+            rectangle.y = tmp_y * SCALE;
+            rectangle.w = SCALE;
+            rectangle.h = SCALE;
             SDL_RenderFillRect(this->renderer, &rectangle);
 		}
 	}
