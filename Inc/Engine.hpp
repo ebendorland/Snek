@@ -11,6 +11,7 @@
 #include <term.h>
 #include "Snek.hpp"
 #include "libs.hpp"
+#include "food.hpp"
 
 #define DEFAULT_WIN_X 60
 #define DEFAULT_WIN_Y 30
@@ -21,24 +22,23 @@ class Engine
         dynamic_libs *lib;
         void *handle;
         bool game_state;
-        unsigned int Froot[2];
-        unsigned int s_Froot[2];
+        food *froot;
+        food *s_froot;
         std::vector < Snek * > snek;
         unsigned int win_x;
         unsigned int win_y;
-        bool froot;
-        bool s_froot;
         char **map;
         int steps;
         int snek_dir;
+        int current_lib;
 
     public:
         Engine();
         Engine(unsigned int win_X, unsigned int win_Y);
-        Engine(Engine const &obj);
+        //Engine(Engine const &obj);
         ~Engine();
 
-        Engine &operator=(Engine const &obj);
+        //Engine &operator=(Engine const &obj);
 
         void user_input(int argc, char **argv);
         void init(int argc, char **argv);
@@ -50,6 +50,7 @@ class Engine
         void move_snek();
         void check_colision();
         void spawn_froot();
+        void spawn_special_froot();
         void load_lib(std::string const &lib_path);
         void close_lib();
 };

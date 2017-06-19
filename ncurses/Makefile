@@ -8,11 +8,13 @@ NCURSES = -lncurses
 
 HEADER = ncurses.hpp
 
-SRC = ../Src/libs.cpp ncurses.cpp
+SRC_PATH = ../Src/
 
-OBJ =	$(SRC:.cpp=.cpp.o)
+SRC = $(SRC_PATH)libs.cpp ncurses.cpp
 
-%.cpp.o: %.cpp
+OBJ = $(SRC:.cpp=.o)
+
+%.o: %.cpp
 	$(CLANG) -c $(CFLAGS) -fpic $< -o $@
 
 all: $(NAME)

@@ -1,18 +1,18 @@
-NAME=Nibbler
+NAME =Nibbler
 
-CLANG=clang++
+CLANG =clang++
 
-CFLAGS=
+CFLAGS = -Wall -Werror -Wextra
 
-RM=rm -f
+RM = rm -f
 
-PATH_SRC= ./Src/
+PATH_SRC = ./Src/
 
-PATH_HD= -I Inc/
+PATH_HD = -I Inc/
 
-SRC = $(PATH_SRC)main.cpp $(PATH_SRC)Engine.cpp $(PATH_SRC)Snek.cpp
+SRC = $(PATH_SRC)main.cpp $(PATH_SRC)Engine.cpp $(PATH_SRC)Snek.cpp $(PATH_SRC)food.cpp
 
-OBJ = main.o Engine.o Snek.o
+OBJ = main.o Engine.o Snek.o food.o
 
 $(NAME):
 	@echo "Compiling binaries..."

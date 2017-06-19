@@ -11,6 +11,19 @@ extern "C" void destroy(dynamic_libs *obj)
     delete obj;
 }
 
+int ncurses::change_lib()
+{
+    switch (getch())
+    {
+        case KEY_F(2):
+            return (2);
+        case KEY_F(3):
+            return (3);
+    }
+
+    return (1);
+}
+
 void ncurses::init(unsigned int &maxX,unsigned int &maxY)
 {
     this->max_y = maxY;
@@ -27,13 +40,7 @@ void ncurses::init(unsigned int &maxX,unsigned int &maxY)
 	noecho();
     nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
-	//getmaxyx(stdscr, this->max_y, this->max_x);
-	//if ((maxX < 20 + 4) || (maxY < 20))
-    //{
-	//	clear();
-	//	endwin();
-	//	std::cout << "This screen has rows " << maxX << " and " << maxY <<  "columns. resize window" << std::endl;
-	//}
+    curs_set(FALSE);
 }
 
 void ncurses::render(char **map)

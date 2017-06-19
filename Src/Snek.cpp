@@ -34,6 +34,11 @@ Snek &Snek::operator=(Snek const &obj)
     return (*this);
 }
 
+bool Snek::comp_xy(unsigned int const &tmp_x, unsigned int const &tmp_y)
+{
+    return  this->snek_x == tmp_x || this->snek_y == tmp_y  ? 1 : 0;
+}
+
 void Snek::SetIsHed( bool tmp )
 {
     this->is_hed = tmp;

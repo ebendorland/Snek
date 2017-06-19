@@ -1,15 +1,22 @@
 #pragma once
 
-#include <ncurses.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include "../Inc/libs.hpp"
 
-class ncurses : public dynamic_libs
+class sdl : public dynamic_libs
 {
     private:
         int max_x;
         int max_y;
-        //window *game_area;
+
+        SDL_Window *window;
+        SDL_Renderer *renderer;
+        SDL_Event event;
+    	//TTF_Font *font;
 
     public:
         void init(unsigned int &maxX, unsigned int &maxY);

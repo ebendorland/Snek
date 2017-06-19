@@ -28,4 +28,6 @@ class Snek
         unsigned int GetY() const;
         bool GetIsHed() const;
         unsigned int GetPartDir() const;
+
+        bool comp_xy(unsigned int const &tmp_x, unsigned int const &tmp_y);
 };
