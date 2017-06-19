@@ -19,6 +19,7 @@ class sdl : public dynamic_libs
     	//TTF_Font *font;
 
     public:
+        ~sdl();
         void init(unsigned int &maxX, unsigned int &maxY);
         void render(char **map);
         int input(int &dir);

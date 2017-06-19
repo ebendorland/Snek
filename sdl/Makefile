@@ -6,13 +6,13 @@ CFLAGS = -Wall -Werror -Wextra
 
 SDL = -w -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
-HEADER = ncurses.hpp
+HEADER = sdl.hpp
 
 SRC = ../Src/libs.cpp sdl.cpp
 
-OBJ =	$(SRC:.cpp=.cpp.o)
+OBJ =	$(SRC:.cpp=.o)
 
-%.cpp.o: %.cpp
+%.o: %.cpp
 	$(CLANG) -c $(CFLAGS) -fpic $< -o $@
 
 all: $(NAME)

@@ -27,8 +27,12 @@ https://ubuntuforums.org/showthread.php?t=1604505
 https://stackoverflow.com/questions/496664/c-dynamic-shared-library-on-linux
 
 Impotent!!!
- __________________________________________________
-|http://www.tldp.org/HOWTO/html_single/C++-dlopen/ |
-|__________________________________________________|
+
+dynamic libs:
+http://www.tldp.org/HOWTO/html_single/C++-dlopen/
+
+sdl:
+https://www.youtube.com/playlist?list=PL7KCQDpC21pnZwhmuBChNmLKZmOjNErqP
+
 
 http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/linux/cli/index.php
