@@ -244,7 +244,7 @@ void Engine::init(int argc, char **argv)
     this->win_y = DEFAULT_WIN_Y;
     this->current_lib = 1;
     user_input(argc, argv);
-    load_lib("./sdl/sdl.so");
+    load_lib("./ncurses/ncurses.so");
     create_snek();
     init_map();
     this->lib->init(this->win_x, this->win_y);
@@ -319,7 +319,8 @@ void Engine::game_loop()
         if (this->froot->GetIsFood() == false)
             spawn_froot();
         add_placeholders();
-		this->lib->render(this->map);
+        if (this->game_state == true)
+		      this->lib->render(this->map);
         this->steps += 1;
 		usleep(100000);
 	}

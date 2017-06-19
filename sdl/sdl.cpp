@@ -65,10 +65,10 @@ void sdl::render(char **map)
 			}
             SDL_Rect rectangle;
 
-            rectangle.x = tmp_x * 20.0f;
-            rectangle.y = tmp_y * 20.0f;
-            rectangle.w = 20.0f;
-            rectangle.h = 20.0f;
+            rectangle.x = tmp_x * 5.0f;
+            rectangle.y = tmp_y * 5.0f;
+            rectangle.w = 5.0f;
+            rectangle.h = 5.0f;
             SDL_RenderFillRect(this->renderer, &rectangle);
 		}
 	}
