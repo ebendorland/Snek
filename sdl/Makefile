@@ -7,6 +7,9 @@ FLAGS = -Wall -Werror -Wextra
 $(NAME):
 	$(COMPILER) $(NAME) $(SRCS) $(LIBS) $(FLAGS) -shared -fpic
 
+sdl2:
+	brew install SDL2
+
 clean:
 	rm -f $(NAME)
 re: clean $(NAME)
