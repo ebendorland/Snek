@@ -242,36 +242,51 @@ void Engine::init(int argc, char **argv)
     this->snek_dir = 1;
     this->win_x = DEFAULT_WIN_X;
     this->win_y = DEFAULT_WIN_Y;
-    this->current_lib = 1;
+    this->current_lib = 5;
+    this->pause = true;
     user_input(argc, argv);
-    load_lib("./sdl/sdl.so");
+    load_lib(PATH_NCURSES);
     create_snek();
     init_map();
-    this->lib->init(this->win_x, this->win_y);
 }
 
 void Engine::move_snek()
 {
-
-    this->snek_dir = this->lib->input(this->snek_dir);
-
     int tmp_dir = this->snek[0]->GetPartDir();
     int tmp_x = this->snek[0]->GetX();
     int tmp_y = this->snek[0]->GetY();
+    int ret_tmp = 0;
 
-    this->snek[0]->SetPartDir(this->snek_dir);
-    if (1 == this->snek_dir) // UP
-        this->snek[0]->SetY(tmp_y - 1);
-    else if (2 == this->snek_dir) // RIGHT
-        this->snek[0]->SetX(tmp_x + 1);
-    else if (3 == this->snek_dir) // DOWN
-        this->snek[0]->SetY(tmp_y + 1);
-    else if (4 == this->snek_dir) // LEFT
-        this->snek[0]->SetX(tmp_x - 1);
+    ret_tmp = this->lib->input(this->snek_dir, this->current_lib);
+
+    if (ret_tmp > 4)
+        change_lib(ret_tmp);
+    else
+        this->snek_dir = ret_tmp;
+
+    switch (this->snek_dir)
+    {
+        case 1: // UP
+            this->snek[0]->SetY(tmp_y - 1);
+            break ;
+        case 2: // RIGHT
+            this->snek[0]->SetX(tmp_x + 1);
+            break ;
+        case 3: // DOWN
+            this->snek[0]->SetY(tmp_y + 1);
+            break ;
+        case 4: // LEFT
+            this->snek[0]->SetX(tmp_x - 1);
+            break ;
+    }
 
     int tmpx = 0;
     int tmpy = 0;
     int tmpdir = 0;
+
+    if (this->snek_dir != tmp_dir)
+        this->snek[0]->SetPartDir(this->snek_dir);
+
     for (unsigned int count = 1; count < this->snek.size(); count++)
     {
         tmpx = this->snek[count]->GetX();
@@ -291,6 +306,26 @@ void Engine::move_snek()
     check_colision();
 }
 
+void Engine::change_lib(int &ret_tmp)
+{
+    this->current_lib = ret_tmp;
+    close_lib();
+    switch (this->current_lib)
+    {
+        case 5:
+            load_lib(PATH_NCURSES);
+            break ;
+        case 6:
+            load_lib(PATH_SDL);
+            break ;
+        case 7:
+            break ;
+        case 8:
+            this->game_state = false;
+            break ;
+    }
+}
+
 void Engine::game_loop()
 {
     this->game_state = true;
@@ -298,34 +333,17 @@ void Engine::game_loop()
 	srand(time(0));
 	while (this->game_state)
     {
-		move_snek();
-        /*if (this->current_lib != this->lib->change_lib())
-        {
-            //close_lib();
-            switch (this->current_lib)
-            {
-                case 1:
-                    load_lib("./ncurses/ncurses.so");
-                    break ;
-                case 2:
-                    this->game_state = false;
-                    break ;
-                case 3:
-                    break ;
-            }
-        }*/
+    	move_snek();
         if (rand() % 100 == 9 && this->s_froot->GetIsFood() == false)
             spawn_special_froot();
         if (this->froot->GetIsFood() == false)
             spawn_froot();
         add_placeholders();
         if (this->game_state == true)
-		      this->lib->render(this->map);
+    	      this->lib->render(this->map);
         this->steps += 1;
-		usleep(100000);
+    	usleep(300000);
 	}
-
-    close_lib();
 }
 
 void Engine::load_lib(std::string const &lib_path)
@@ -348,6 +366,8 @@ void Engine::load_lib(std::string const &lib_path)
     // create an instance of the class
     this->lib = create_lib();
 
+    this->lib->init(this->win_x, this->win_y);
+
 }
 
 void Engine::close_lib()
@@ -363,6 +383,6 @@ void Engine::close_lib()
 
     destroy_lib(this->lib);
 
-    // unload the triangle library
+    // unload the library
     dlclose(this->handle);
 }

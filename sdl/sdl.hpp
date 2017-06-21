@@ -24,6 +24,6 @@ class sdl : public dynamic_libs
         ~sdl();
         void init(unsigned int &maxX, unsigned int &maxY);
         void render(char **map);
-        int input(int &dir);
+        int input(int &dir, int &lib);
         int change_lib();
 };

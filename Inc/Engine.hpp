@@ -15,6 +15,8 @@
 
 #define DEFAULT_WIN_X 60
 #define DEFAULT_WIN_Y 30
+#define PATH_SDL "./sdl/sdl.so"
+#define PATH_NCURSES "./ncurses/ncurses.so"
 
 class Engine
 {
@@ -31,6 +33,7 @@ class Engine
         int steps;
         int snek_dir;
         int current_lib;
+        bool pause;
 
     public:
         Engine();
@@ -48,6 +51,7 @@ class Engine
         void add_placeholders();
         void create_snek();
         void move_snek();
+        void change_lib(int &ret_tmp);
         void check_colision();
         void spawn_froot();
         void spawn_special_froot();

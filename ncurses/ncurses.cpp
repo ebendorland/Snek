@@ -57,7 +57,7 @@ void ncurses::render(char **map)
     refresh();
 }
 
-int ncurses::input(int &dir)
+int ncurses::input(int &dir, int &lib)
 {
     switch (getch())
     {
@@ -76,6 +76,21 @@ int ncurses::input(int &dir)
         case KEY_LEFT:
             if (dir != 2)
                 return (4);
+            break ;
+        case 49:
+            if (lib != 2)
+                return (5);
+            break ;
+        case 50:
+            if (lib != 2)
+                return (6);
+            break ;
+        case 51:
+            if (lib != 2)
+                return (7);
+            break ;
+        case 27:
+            return (8);
             break ;
     }
     return (dir);

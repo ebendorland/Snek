@@ -75,7 +75,7 @@ void sdl::render(char **map)
 	SDL_RenderPresent( this->renderer );
 }
 
-int sdl::input(int &dir)
+int sdl::input(int &dir, int &lib)
 {
     while(SDL_PollEvent( &this->event ))
     {
@@ -98,6 +98,21 @@ int sdl::input(int &dir)
                 case SDLK_LEFT:
                     if (dir != 2)
                         return (4);
+                    break ;
+                case SDLK_1:
+                    if (lib != 5)
+                        return (5);
+                    break ;
+                case SDLK_2:
+                    if (lib != 6)
+                        return (6);
+                    break ;
+                case SDLK_3:
+                    if (lib != 7)
+                        return (7);
+                    break ;
+                case SDLK_ESCAPE:
+                    return (8);
                     break ;
             }
         }
