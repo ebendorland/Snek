@@ -78,20 +78,21 @@ int ncurses::input(int &dir, int &lib)
                 return (4);
             break ;
         case 49:
-            if (lib != 2)
+            if (lib != 5)
                 return (5);
             break ;
         case 50:
-            if (lib != 2)
+            if (lib != 6)
                 return (6);
             break ;
         case 51:
-            if (lib != 2)
+            if (lib != 7)
                 return (7);
             break ;
         case 27:
             return (8);
-            break ;
+        case 32:
+            return (9);
     }
     return (dir);
 }

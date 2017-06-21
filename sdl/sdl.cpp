@@ -113,7 +113,8 @@ int sdl::input(int &dir, int &lib)
                     break ;
                 case SDLK_ESCAPE:
                     return (8);
-                    break ;
+                case SDLK_SPACE:
+                    return (9);
             }
         }
     }

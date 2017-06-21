@@ -243,7 +243,7 @@ void Engine::init(int argc, char **argv)
     this->win_x = DEFAULT_WIN_X;
     this->win_y = DEFAULT_WIN_Y;
     this->current_lib = 5;
-    this->pause = true;
+    this->pause = false;
     user_input(argc, argv);
     load_lib(PATH_NCURSES);
     create_snek();
@@ -261,54 +261,63 @@ void Engine::move_snek()
 
     if (ret_tmp > 4)
         change_lib(ret_tmp);
-    else
+    else if (this->pause == false)
+    {
         this->snek_dir = ret_tmp;
 
-    switch (this->snek_dir)
-    {
-        case 1: // UP
-            this->snek[0]->SetY(tmp_y - 1);
-            break ;
-        case 2: // RIGHT
-            this->snek[0]->SetX(tmp_x + 1);
-            break ;
-        case 3: // DOWN
-            this->snek[0]->SetY(tmp_y + 1);
-            break ;
-        case 4: // LEFT
-            this->snek[0]->SetX(tmp_x - 1);
-            break ;
+        switch (this->snek_dir)
+        {
+            case 1: // UP
+                this->snek[0]->SetY(tmp_y - 1);
+                break ;
+            case 2: // RIGHT
+                this->snek[0]->SetX(tmp_x + 1);
+                break ;
+            case 3: // DOWN
+                this->snek[0]->SetY(tmp_y + 1);
+                break ;
+            case 4: // LEFT
+                this->snek[0]->SetX(tmp_x - 1);
+                break ;
+        }
+
+        int tmpx = 0;
+        int tmpy = 0;
+        int tmpdir = 0;
+
+        if (this->snek_dir != tmp_dir)
+            this->snek[0]->SetPartDir(this->snek_dir);
+
+        for (unsigned int count = 1; count < this->snek.size(); count++)
+        {
+            tmpx = this->snek[count]->GetX();
+            tmpy = this->snek[count]->GetY();
+            tmpdir = this->snek[count]->GetPartDir();
+
+            this->snek[count]->SetY(tmp_y);
+            this->snek[count]->SetX(tmp_x);
+            this->snek[count]->SetPartDir(tmp_dir);
+
+            tmp_x = tmpx;
+            tmp_y = tmpy;
+            tmp_dir = tmpdir;
+        }
+
+        this->map[tmp_y][tmp_x] = ' ';
+        check_colision();
     }
-
-    int tmpx = 0;
-    int tmpy = 0;
-    int tmpdir = 0;
-
-    if (this->snek_dir != tmp_dir)
-        this->snek[0]->SetPartDir(this->snek_dir);
-
-    for (unsigned int count = 1; count < this->snek.size(); count++)
-    {
-        tmpx = this->snek[count]->GetX();
-        tmpy = this->snek[count]->GetY();
-        tmpdir = this->snek[count]->GetPartDir();
-
-        this->snek[count]->SetY(tmp_y);
-        this->snek[count]->SetX(tmp_x);
-        this->snek[count]->SetPartDir(tmp_dir);
-
-        tmp_x = tmpx;
-        tmp_y = tmpy;
-        tmp_dir = tmpdir;
-    }
-
-    this->map[tmp_y][tmp_x] = ' ';
-    check_colision();
 }
 
 void Engine::change_lib(int &ret_tmp)
 {
-    this->current_lib = ret_tmp;
+    if (ret_tmp == 9)
+    {
+        this->pause = !this->pause;
+        return ;
+    }
+    else
+        this->current_lib = ret_tmp;
+
     close_lib();
     switch (this->current_lib)
     {
@@ -324,6 +333,8 @@ void Engine::change_lib(int &ret_tmp)
             this->game_state = false;
             break ;
     }
+
+    this->pause = true;
 }
 
 void Engine::game_loop()
@@ -334,15 +345,18 @@ void Engine::game_loop()
 	while (this->game_state)
     {
     	move_snek();
-        if (rand() % 100 == 9 && this->s_froot->GetIsFood() == false)
-            spawn_special_froot();
-        if (this->froot->GetIsFood() == false)
-            spawn_froot();
-        add_placeholders();
+        if (this->pause == false)
+        {
+            if (rand() % 100 == 9 && this->s_froot->GetIsFood() == false)
+                spawn_special_froot();
+            if (this->froot->GetIsFood() == false)
+                spawn_froot();
+            add_placeholders();
+            this->steps += 1;
+        }
         if (this->game_state == true)
-    	      this->lib->render(this->map);
-        this->steps += 1;
-    	usleep(300000);
+            this->lib->render(this->map);
+    	usleep(70000);
 	}
 }
 
