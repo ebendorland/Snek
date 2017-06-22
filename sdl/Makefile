@@ -17,7 +17,7 @@ SRC = $(SRC_PATH)libs.cpp sdl.cpp
 OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp
-	$(CLANG) -c $(CFLAGS) $(SDL_CFLAGS) -fpic $< -o $@
+	$(CLANG) -c $(CFLAGS) $(SDL_CFLAGS)  -fpic $< -o $@
 
 all: $(NAME)
 
@@ -28,7 +28,7 @@ sdl2:
 	brew install SDL2
 
 sdl2_ttf:
-	brew install SDL2_ttf	
+	brew install SDL2_ttf
 
 clean:
 	rm -rf $(OBJ)
