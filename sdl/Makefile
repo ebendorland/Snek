@@ -2,7 +2,7 @@ CLANG =	clang++
 
 NAME = sdl.so
 
-CFLAGS = 
+CFLAGS =
 
 SDL_lIBS = $(shell sdl2-config --libs)
 
@@ -26,6 +26,9 @@ $(NAME): $(OBJ) $(HEADER)
 
 sdl2:
 	brew install SDL2
+
+sdl2_ttf:
+	brew install SDL2_ttf	
 
 clean:
 	rm -rf $(OBJ)
