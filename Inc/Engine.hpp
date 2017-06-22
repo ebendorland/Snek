@@ -35,7 +35,7 @@ class Engine
         int snek_dir;
         int current_lib;
         bool pause;
-        int score;
+        unsigned int score;
 
     public:
         Engine();

@@ -27,15 +27,25 @@ void sdl::init(unsigned int &maxX,unsigned int &maxY)
      this->window = SDL_CreateWindow( "Snek", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, (maxX + 2) * SCALE, (maxY + 2) * SCALE, SDL_WINDOW_SHOWN );
      this->renderer = SDL_CreateRenderer( this->window, -1, SDL_RENDERER_ACCELERATED );
      SDL_RenderSetLogicalSize( this->renderer, (this->max_x + 2) * SCALE, (this->max_y + 2) * SCALE );
-     //SDL_SetRenderDrawColor( this->renderer, 0, 0, 0, 255 );
+     SDL_SetRenderDrawColor( this->renderer, 0, 0, 0, 255 );
 
      this->score = TTF_OpenFont("LemonMilk.otf", 29);
-     this->textSurface = TTF_RenderText_Solid(this->score, "TESTING YOU CUNT !!!", this->col);
-     this->text = SDL_CreateTextureFromSurface(this->renderer, this->textSurface);
 }
 
-void sdl::render(char **map)
+void sdl::create_score_texture(unsigned int &score)
 {
+    std::string tmp = "Score: ";
+    std::ostringstream stm ;
+    stm << score ;
+
+    tmp += stm.str();
+    this->textSurface = TTF_RenderText_Solid(this->score, tmp.c_str(), this->col);
+    this->text = SDL_CreateTextureFromSurface(this->renderer, this->textSurface);
+}
+
+void sdl::render(char **map, unsigned int &score)
+{
+    create_score_texture(score);
 	SDL_SetRenderDrawColor(this->renderer, 23, 23, 23, 255);
 	SDL_RenderClear( this->renderer );
     SDL_Rect rectangle;
@@ -67,7 +77,6 @@ void sdl::render(char **map)
                     break;
 			}
 
-
             rectangle.x = tmp_x * SCALE;
             rectangle.y = tmp_y * (SCALE - 3);
             rectangle.w = SCALE;
@@ -76,7 +85,6 @@ void sdl::render(char **map)
             SDL_RenderFillRect(this->renderer, &rectangle);
 		}
 	}
-
 
     sco.x = ((this->max_x / 2) - 6) * SCALE;
     sco.y = (this->max_y - 1) * SCALE;

@@ -9,10 +9,9 @@ class ncurses : public dynamic_libs
     private:
         int max_x;
         int max_y;
-        //window *game_area;
 
     public:
         void init(unsigned int &maxX, unsigned int &maxY);
-        void render(char **map);
+        void render(char **map, unsigned int &score);
         int input(int &dir, int &lib);
 };

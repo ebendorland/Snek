@@ -2,7 +2,7 @@ CLANG =	clang++
 
 NAME = ncurses.so
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = 
 
 NCURSES = -lncurses
 

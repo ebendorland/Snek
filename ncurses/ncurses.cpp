@@ -30,7 +30,7 @@ void ncurses::init(unsigned int &maxX,unsigned int &maxY)
     curs_set(FALSE);
 }
 
-void ncurses::render(char **map)
+void ncurses::render(char **map, unsigned int &score)
 {
     clear();
     for (int tmp_y = 0; tmp_y < (this->max_y + 2); tmp_y++)

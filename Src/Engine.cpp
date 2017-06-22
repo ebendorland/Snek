@@ -370,7 +370,7 @@ void Engine::game_loop()
             this->steps += 1;
         }
         if (this->game_state == true)
-            this->lib->render(this->map);
+            this->lib->render(this->map, this->score);
     	usleep(70000);
 	}
 }

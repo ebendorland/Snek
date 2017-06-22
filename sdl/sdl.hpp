@@ -5,6 +5,7 @@
 #include <SDL2/SDL_ttf.h>
 //#include <SDL_mixer.h>
 #include <iostream>
+#include <sstream>
 #include "../Inc/libs.hpp"
 
 #define SCALE 20.0f
@@ -31,6 +32,7 @@ class sdl : public dynamic_libs
     public:
         ~sdl();
         void init(unsigned int &maxX, unsigned int &maxY);
-        void render(char **map);
+        void render(char **map, unsigned int &score);
         int input(int &dir, int &lib);
+        void create_score_texture(unsigned int &score);
 };
