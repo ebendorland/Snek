@@ -33,6 +33,7 @@ void ncurses::init(unsigned int &maxX,unsigned int &maxY)
 void ncurses::render(char **map, unsigned int &score)
 {
     clear();
+    getmaxyx(stdscr, this->stdscr_y, this->stdscr_x);
     for (int tmp_y = 0; tmp_y < (this->max_y + 2); tmp_y++)
     {
         for (int tmp_x = 0; tmp_x < this->max_x + 2; tmp_x++)
@@ -41,6 +42,7 @@ void ncurses::render(char **map, unsigned int &score)
         }
         printw("\n");
     }
+    mvprintw(this->max_y + 3, 0, "Score: %d", score);
     refresh();
 }
 

@@ -90,24 +90,20 @@ void Engine::check_colision()
         this->snek.push_back(new Snek(tmp_x, tmp_y, false, tmp_dir));
         this->froot->SetIsFood(false);
 
-        this->score += 3;
+        this->score += (rand() % 5 + 1);
     }
 
-    if ((this->s_froot->comp_x(hed_x) && this->s_froot->comp_y(hed_y)) || (this->steps % 8900000 && this->s_froot->GetIsFood() == true))
+    if (this->s_froot->comp_x(hed_x) && this->s_froot->comp_y(hed_y))
     {
         this->map[this->s_froot->GetY()][this->s_froot->GetX()] = ' ';
         this->s_froot->SetIsFood(false);
-
-        if (!(this->steps % 40))
-        {
-            this->score += 10;
-        }
+        this->score += 10;
     }
 }
 
 void Engine::spawn_special_froot()
 {
-    if (this->steps % 14000)
+    if (this->steps % 20000)
     {
         this->s_froot->make_food(this->win_x, this->win_y);
         for (unsigned int count = 0; count < this->snek.size(); count++)
@@ -144,10 +140,10 @@ void Engine::add_placeholders()
     int tmp_y = 0;
 
     if (this->froot->GetIsFood() == true)
-        this->map[this->froot->GetY()][this->froot->GetX()] = 'p';
+        this->map[this->froot->GetY()][this->froot->GetX()] = '*';
 
     if (this->s_froot->GetIsFood() == true)
-        this->map[this->s_froot->GetY()][this->s_froot->GetX()] = 'j';
+        this->map[this->s_froot->GetY()][this->s_froot->GetX()] = '!';
 
     for (unsigned int count = 0; count < this->snek.size(); count++)
     {
@@ -157,7 +153,7 @@ void Engine::add_placeholders()
         if (this->snek[count]->GetIsHed())
             this->map[tmp_y][tmp_x] = '@';
         else
-            this->map[tmp_y][tmp_x] = '*';
+            this->map[tmp_y][tmp_x] = 'o';
     }
 }
 
@@ -252,6 +248,7 @@ void Engine::init(int argc, char **argv)
     this->current_lib = 5;
     this->pause = false;
     this->last_pressed = 0;
+    this->lib_closed = true;
     this->score = 0;
     user_input(argc, argv);
     load_lib(PATH_NCURSES);
@@ -373,6 +370,9 @@ void Engine::game_loop()
             this->lib->render(this->map, this->score);
     	usleep(70000);
 	}
+
+    if(!this->lib_closed)
+        close_lib();
 }
 
 void Engine::load_lib(std::string const &lib_path)
@@ -397,6 +397,8 @@ void Engine::load_lib(std::string const &lib_path)
 
     this->lib->init(this->win_x, this->win_y);
 
+    this->lib_closed = false;
+
 }
 
 void Engine::close_lib()
@@ -414,4 +416,6 @@ void Engine::close_lib()
 
     // unload the library
     dlclose(this->handle);
+
+    this->lib_closed = true;
 }

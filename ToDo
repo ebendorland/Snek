@@ -1,0 +1,29 @@
+Still To DO:
+
+Error Handling Ncurses
+Error Handling SDL
+Error Handling SFML
+Error Handling Engine
+Error Handling Dynamic Libs
+
+
+Add Score Ncurses : Done
+Free Memory Ncurses : Done
+Add Score SDL : Done
+Free Memory SDL : Done
+
+Fix Input and Speed issues
+
+Fix Pause
+Add increasing speed (Fix Input and Speed issues) : Bonus
+Change PlaceHolders : Done
+Fix Froot Timing : Bonus
+Fix Exit Issues : Done
+
+Check Coplience Form For:
+Snek
+Food
+Engine
+SDL
+Ncurses
+SFML

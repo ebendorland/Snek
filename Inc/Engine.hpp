@@ -36,6 +36,7 @@ class Engine
         int current_lib;
         bool pause;
         unsigned int score;
+        bool lib_closed;
 
     public:
         Engine();

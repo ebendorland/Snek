@@ -40,4 +40,4 @@ lib_clean:
 	make -C ./ncurses/ fclean
 	make -C ./sdl/ fclean
 
-c_everything: fclean lib_clean
+c_e: fclean lib_clean

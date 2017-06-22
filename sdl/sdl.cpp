@@ -14,6 +14,7 @@ sdl::~sdl()
 {
     SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
+    SDL_DestroyTexture(this->text);
 	SDL_Quit();
 }
 
@@ -32,7 +33,7 @@ void sdl::init(unsigned int &maxX,unsigned int &maxY)
      this->score = TTF_OpenFont("LemonMilk.otf", 29);
 }
 
-void sdl::create_score_texture(unsigned int &score)
+int sdl::create_score_texture(unsigned int &score)
 {
     std::string tmp = "Score: ";
     std::ostringstream stm ;
@@ -41,11 +42,16 @@ void sdl::create_score_texture(unsigned int &score)
     tmp += stm.str();
     this->textSurface = TTF_RenderText_Solid(this->score, tmp.c_str(), this->col);
     this->text = SDL_CreateTextureFromSurface(this->renderer, this->textSurface);
+
+    SDL_FreeSurface(this->textSurface);
+    this->textSurface = NULL;
+
+    return (tmp.length() / 2);
 }
 
 void sdl::render(char **map, unsigned int &score)
 {
-    create_score_texture(score);
+    this->rand = create_score_texture(score);
 	SDL_SetRenderDrawColor(this->renderer, 23, 23, 23, 255);
 	SDL_RenderClear( this->renderer );
     SDL_Rect rectangle;
@@ -66,10 +72,10 @@ void sdl::render(char **map, unsigned int &score)
                 case '@':
                     SDL_SetRenderDrawColor(this->renderer, 0, 255, 76, 255);
                     break;
-                case 'p':
+                case 'o':
                     SDL_SetRenderDrawColor(this->renderer, 20, 98, 4, 255);
                     break;
-                case 'j':
+                case '!':
                     SDL_SetRenderDrawColor(this->renderer, 45, 32, 34, 255);
                     break;
                 default:
@@ -86,7 +92,7 @@ void sdl::render(char **map, unsigned int &score)
 		}
 	}
 
-    sco.x = ((this->max_x / 2) - 6) * SCALE;
+    sco.x = ((this->max_x / 2) - this->rand) * SCALE;
     sco.y = (this->max_y - 1) * SCALE;
     sco.w = SCALE;
     sco.h = SCALE;

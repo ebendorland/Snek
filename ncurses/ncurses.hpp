@@ -9,6 +9,8 @@ class ncurses : public dynamic_libs
     private:
         int max_x;
         int max_y;
+        int stdscr_x;
+        int stdscr_y;
 
     public:
         void init(unsigned int &maxX, unsigned int &maxY);

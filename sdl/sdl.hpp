@@ -15,6 +15,7 @@ class sdl : public dynamic_libs
     private:
         int max_x;
         int max_y;
+        int rand;
 
         //window
         SDL_Window *window;
@@ -34,5 +35,5 @@ class sdl : public dynamic_libs
         void init(unsigned int &maxX, unsigned int &maxY);
         void render(char **map, unsigned int &score);
         int input(int &dir, int &lib);
-        void create_score_texture(unsigned int &score);
+        int create_score_texture(unsigned int &score);
 };
