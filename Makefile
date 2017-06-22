@@ -1,37 +1,33 @@
-NAME =Nibbler
+CLANG =	clang++
 
-CLANG =clang++
+NAME = Nibbler
 
 CFLAGS = -Wall -Werror -Wextra
 
-RM = rm -f
+C++_TYPE = -std=c++11
 
-PATH_SRC = ./Src/
+HEADER = ./Inc/
 
-PATH_HD = -I Inc/
+SRC_PATH = ./Src/
 
-SRC = $(PATH_SRC)main.cpp $(PATH_SRC)Engine.cpp $(PATH_SRC)Snek.cpp $(PATH_SRC)food.cpp
+SRC = $(SRC_PATH)main.cpp $(SRC_PATH)Engine.cpp $(SRC_PATH)food.cpp $(SRC_PATH)Snek.cpp
 
-OBJ = main.o Engine.o Snek.o food.o
+OBJ = $(SRC:.cpp=.o)
 
-$(NAME):
-	@echo "Compiling binaries..."
-	make -C ./ncurses/
-	make -C ./sdl/
-	@$(CLANG) -std=c++11 $(CFLAGS) $(PATH_HD) -c $(SRC)
-	@$(CLANG) -std=c++11 -o $(NAME) $(OBJ) -ldl -lncurses
-	@echo "Compilation was successful!"
+%.o: %.cpp
+	$(CLANG) -c $(CFLAGS) $(C++_TYPE) $< -o $@
 
 all: $(NAME)
 
+$(NAME): $(OBJ) $(HEADER)
+	$(CLANG) $(CFLAGS) $(C++_TYPE) -Qunused-arguments -o $(NAME) $(OBJ) -ldl
+
 clean:
-	@rm -rf $(OBJ)
-	@make -C ./ncurses/ clean
-	@make -C ./sdl/ clean
+	rm -rf $(OBJ)
 
 fclean: clean
-	@rm -rf $(NAME)
-	@make -C ./ncurses/ fclean
-	@make -C ./sdl/ fclean
+	rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

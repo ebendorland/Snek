@@ -244,6 +244,7 @@ void Engine::init(int argc, char **argv)
     this->win_y = DEFAULT_WIN_Y;
     this->current_lib = 5;
     this->pause = false;
+    this->last_pressed = 0;
     user_input(argc, argv);
     load_lib(PATH_NCURSES);
     create_snek();
@@ -312,11 +313,17 @@ void Engine::change_lib(int &ret_tmp)
 {
     if (ret_tmp == 9)
     {
-        this->pause = !this->pause;
+        if (this->last_pressed != 9)
+        {
+            this->pause = !this->pause;
+            this->last_pressed = ret_tmp;
+        }
         return ;
     }
     else
         this->current_lib = ret_tmp;
+
+    this->last_pressed = ret_tmp;
 
     close_lib();
     switch (this->current_lib)

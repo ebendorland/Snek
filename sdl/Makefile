@@ -1,15 +1,38 @@
-COMPILER = clang++ -o
-NAME = sdl.so
-SRCS = sdl.cpp ../Src/libs.cpp
-LIBS = $(shell sdl2-config --cflags --libs)
-FLAGS = -Wall -Werror -Wextra
+CLANG =	clang++
 
-$(NAME):
-	$(COMPILER) $(NAME) $(SRCS) $(LIBS) $(FLAGS) -shared -fpic
+NAME = sdl.so
+
+CFLAGS = -Wall -Werror -Wextra
+
+SDL_lIBS = $(shell sdl2-config --libs)
+
+SDL_CFLAGS = $(shell sdl2-config --cflags)
+
+HEADER = sdl.hpp
+
+SRC_PATH = ../Src/
+
+SRC = $(SRC_PATH)libs.cpp sdl.cpp
+
+OBJ = $(SRC:.cpp=.o)
+
+%.o: %.cpp
+	$(CLANG) -c $(CFLAGS) $(SDL_CFLAGS) -fpic $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(HEADER)
+	$(CLANG) $(CFLAGS) $(SDL_lIBS) -shared -Qunused-arguments -o $(NAME) $(OBJ)
 
 sdl2:
 	brew install SDL2
 
 clean:
-	rm -f $(NAME)
-re: clean $(NAME)
+	rm -rf $(OBJ)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

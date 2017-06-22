@@ -30,6 +30,7 @@ class Engine
         unsigned int win_x;
         unsigned int win_y;
         char **map;
+        int last_pressed;
         int steps;
         int snek_dir;
         int current_lib;
