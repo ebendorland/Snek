@@ -41,5 +41,3 @@ lib_clean:
 	make -C ./sdl/ fclean
 
 c_everything: fclean lib_clean
-
-.PHONY: all clean fclean re

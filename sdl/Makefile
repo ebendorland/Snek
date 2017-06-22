@@ -2,7 +2,7 @@ CLANG =	clang++
 
 NAME = sdl.so
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = 
 
 SDL_lIBS = $(shell sdl2-config --libs)
 
@@ -22,7 +22,7 @@ OBJ = $(SRC:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER)
-	$(CLANG) $(CFLAGS) $(SDL_lIBS) -shared -Qunused-arguments -o $(NAME) $(OBJ)
+	$(CLANG) $(CFLAGS) $(SDL_lIBS) -lSDL2_ttf -shared -Qunused-arguments -o $(NAME) $(OBJ)
 
 sdl2:
 	brew install SDL2
@@ -34,5 +34,3 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re

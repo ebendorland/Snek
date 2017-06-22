@@ -15,5 +15,4 @@ class ncurses : public dynamic_libs
         void init(unsigned int &maxX, unsigned int &maxY);
         void render(char **map);
         int input(int &dir, int &lib);
-        int change_lib();
 };

@@ -25,6 +25,8 @@ https://www.google.com/search?client=ubuntu&channel=fs&q=using+makefiels&ie=utf-
 https://stackoverflow.com/questions/480764/linux-error-while-loading-shared-libraries-cannot-open-shared-object-file-no-s
 https://ubuntuforums.org/showthread.php?t=1604505
 https://stackoverflow.com/questions/496664/c-dynamic-shared-library-on-linux
+https://stackoverflow.com/questions/29876411/how-to-install-compile-sdl2-c-code-on-linux-ubuntu
+https://stackoverflow.com/questions/31365160/sdl-show-score-on-screen
 
 Impotent!!!
 
@@ -33,6 +35,7 @@ http://www.tldp.org/HOWTO/html_single/C++-dlopen/
 
 sdl:
 https://www.youtube.com/playlist?list=PL7KCQDpC21pnZwhmuBChNmLKZmOjNErqP
+http://aaroncox.net/tutorials/2dtutorials/sdl_text.pdf
 
 
 http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/linux/cli/index.php

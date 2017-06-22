@@ -8,7 +8,6 @@ class dynamic_libs
 
         virtual void init(unsigned int &maxX,unsigned int &maxY) = 0;
         virtual void render(char **map) = 0;
-        virtual int change_lib() = 0;
         virtual int input(int &dir, int &lib) = 0;
 };
 

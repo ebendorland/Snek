@@ -89,12 +89,19 @@ void Engine::check_colision()
 
         this->snek.push_back(new Snek(tmp_x, tmp_y, false, tmp_dir));
         this->froot->SetIsFood(false);
+
+        this->score += 3;
     }
 
-    if (this->s_froot->comp_x(hed_x) && this->s_froot->comp_y(hed_y))
+    if ((this->s_froot->comp_x(hed_x) && this->s_froot->comp_y(hed_y)) || (this->steps % 8900000 && this->s_froot->GetIsFood() == true))
     {
         this->map[this->s_froot->GetY()][this->s_froot->GetX()] = ' ';
         this->s_froot->SetIsFood(false);
+
+        if (!(this->steps % 40))
+        {
+            this->score += 10;
+        }
     }
 }
 
@@ -245,6 +252,7 @@ void Engine::init(int argc, char **argv)
     this->current_lib = 5;
     this->pause = false;
     this->last_pressed = 0;
+    this->score = 0;
     user_input(argc, argv);
     load_lib(PATH_NCURSES);
     create_snek();

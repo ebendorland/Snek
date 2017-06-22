@@ -11,19 +11,6 @@ extern "C" void destroy(dynamic_libs *obj)
     delete obj;
 }
 
-int ncurses::change_lib()
-{
-    switch (getch())
-    {
-        case KEY_F(2):
-            return (2);
-        case KEY_F(3):
-            return (3);
-    }
-
-    return (1);
-}
-
 void ncurses::init(unsigned int &maxX,unsigned int &maxY)
 {
     this->max_y = maxY;
