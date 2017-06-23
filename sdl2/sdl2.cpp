@@ -1,4 +1,4 @@
-#include "sdl.hpp"
+#include "sdl2.hpp"
 
 extern "C" dynamic_libs *create()
 {
@@ -24,7 +24,7 @@ sdl::sdl()
     this->score = NULL;
     this->textSurface = NULL;
 
-    this->col.r = 123;
+    this->col.r = 23;
     this->col.g = 45;
     this->col.b = 34;
     this->col.a = 255;
@@ -131,7 +131,7 @@ void sdl::render(char **map, unsigned int &score, bool &pause)
 {
     pause = false;
     this->rand = create_score_texture(score);
-	SDL_SetRenderDrawColor(this->renderer, 23, 23, 23, 255);
+	SDL_SetRenderDrawColor(this->renderer, 100, 102, 200, 255);
 	SDL_RenderClear( this->renderer );
     SDL_Rect rectangle;
     SDL_Rect sco;
@@ -143,22 +143,22 @@ void sdl::render(char **map, unsigned int &score, bool &pause)
 			switch (map[tmp_y][tmp_x])
             {
                 case '/':
-                    SDL_SetRenderDrawColor(this->renderer, 211, 25, 125, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 138, 3, 98, 255);
                     break;
                 case '*':
-                    SDL_SetRenderDrawColor(this->renderer, 123, 123, 234, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 3, 30, 138, 255);
                     break;
                 case '@':
-                    SDL_SetRenderDrawColor(this->renderer, 0, 255, 76, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 129, 42, 23, 255);
                     break;
                 case 'o':
-                    SDL_SetRenderDrawColor(this->renderer, 20, 98, 4, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 235, 98, 10, 255);
                     break;
                 case '!':
-                    SDL_SetRenderDrawColor(this->renderer, 145, 105, 34, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 6, 99, 34, 255);
                     break;
                 default:
-                    SDL_SetRenderDrawColor(this->renderer, 23, 23, 23, 255);
+                    SDL_SetRenderDrawColor(this->renderer, 100, 102, 200, 255);
                     break;
 			}
 

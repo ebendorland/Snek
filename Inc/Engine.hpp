@@ -15,7 +15,7 @@
 
 #define PATH_SDL "./sdl/sdl.so"
 #define PATH_NCURSES "./ncurses/ncurses.so"
-#define PATH_SFML "sfml.so"
+#define PATH_SFML "./sdl2/sdl2.so"
 
 class Engine
 {

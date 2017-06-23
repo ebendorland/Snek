@@ -14,7 +14,7 @@ HEADER = sfml.hpp
 
 SRC_PATH = ../Src/
 
-SRC = $(SRC_PATH)libs.cpp sfml.cpp
+SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -22,12 +22,14 @@ OBJ = $(SRC:.cpp=.o)
 	$(CLANG) -c $(C++_TYPE) $(CFLAGS) $(SFML_CFLAGS) -fpic $< -o $@
 
 all: $(NAME)
+	$(CLANG) $(C++_TYPE) $(CFLAGS) $(SFML_CFLAGS) $(SFML_lIBS) $(SRC)
 
-$(NAME): $(OBJ) $(HEADER)
-	$(CLANG) $(CFLAGS) $(SFML_lIBS) -fPIC -shared -Qunused-arguments -o $(NAME) $(OBJ)
+$(NAME):
+
 
 sfml:
 	brew install sfml
+
 
 clean:
 	rm -rf $(OBJ)

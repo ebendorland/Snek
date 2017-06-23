@@ -22,7 +22,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(HEADER)
 	make -C ./ncurses/
 	make -C ./sdl/
-	make -C ./sfml/
+	make -C ./sdl2/
 	$(CLANG) $(CFLAGS) $(C++_TYPE) -Qunused-arguments -o $(NAME) $(OBJ) -ldl
 
 clean:
@@ -34,16 +34,16 @@ fclean: clean
 re: fclean all
 	make -C ./ncurses/ re
 	make -C ./sdl/ re
-	make -C ./sfml/ re
+	make -C ./sdl2/ re
 
 libs:
 	make -C ./ncurses/
 	make -C ./sdl/
-	make -C ./sfml/
+	make -C ./sdl2/
 
 lib_clean:
 	make -C ./ncurses/ fclean
 	make -C ./sdl/ fclean
-	make -C ./sfml/ fclean
+	make -C ./sdl2/ fclean
 
 c_e: fclean lib_clean

@@ -377,7 +377,7 @@ void Engine::game_loop()
         }
         if (this->game_state == true)
             this->lib->render(this->map, this->score, this->pause);
-    	usleep(70000);
+    	usleep(100000);
 	}
 
     if(!this->lib_closed)
@@ -386,7 +386,6 @@ void Engine::game_loop()
 
 void Engine::load_lib(std::string const &lib_path)
 {
-    std::cout << lib_path << std::endl;
     this->handle = dlopen(lib_path.c_str(), RTLD_LAZY);
 
     if (this->handle == NULL)
