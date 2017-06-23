@@ -1,31 +1,38 @@
-NAME=Nibbler
+CLANG =	clang++
 
-CLANG=clang++
+NAME = gay.so
 
-CFLAGS=
+CFLAGS = -Wall -Werror -Wextra
 
-RM=rm -f
+C++_TYPE = -std=c++11
 
-PATH_SRC= ./Src/
+SFML_lIBS = -L ~/.brew/lib/ -lsfml-graphics -lsfml-window -lsfml-system
 
-PATH_HD= -I Inc/
+SFML_CFLAGS = -I ~/.brew/include/
 
-SRC = $(PATH_SRC)main.cpp $(PATH_SRC)Engine.cpp $(PATH_SRC)Snek.cpp
+HEADER = sfml.hpp
 
-OBJ = main.o Engine.o Snek.o
+SRC_PATH = ../Src/
 
-$(NAME):
-	@echo "Compiling binaries..."
-	@$(CLANG) -std=c++11 $(CFLAGS) $(PATH_HD) -c $(SRC)
-	@$(CLANG) -std=c++11 -o $(NAME) $(OBJ)
-	@echo "Compilation was successful!"
+SRC = $(SRC_PATH)libs.cpp sfml.cpp
+
+OBJ = $(SRC:.cpp=.o)
+
+%.o: %.cpp
+	$(CLANG) -c $(C++_TYPE) $(CFLAGS) $(SFML_CFLAGS) -fpic $< -o $@
 
 all: $(NAME)
 
+$(NAME): $(OBJ) $(HEADER)
+	$(CLANG) $(CFLAGS) $(SFML_lIBS) -shared -Qunused-arguments -o $(NAME) $(OBJ)
+
+sfml:
+	brew install sfml
+
 clean:
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all

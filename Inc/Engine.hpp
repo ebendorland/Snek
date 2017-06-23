@@ -13,10 +13,9 @@
 #include "libs.hpp"
 #include "food.hpp"
 
-#define DEFAULT_WIN_X 60
-#define DEFAULT_WIN_Y 30
 #define PATH_SDL "./sdl/sdl.so"
 #define PATH_NCURSES "./ncurses/ncurses.so"
+#define PATH_SFML "sfml.so"
 
 class Engine
 {

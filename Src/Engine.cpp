@@ -348,6 +348,7 @@ void Engine::change_lib(int &ret_tmp)
             load_lib(PATH_SDL);
             break ;
         case 7:
+            load_lib(PATH_SFML);
             break ;
         case 8:
             this->game_state = false;
@@ -385,6 +386,7 @@ void Engine::game_loop()
 
 void Engine::load_lib(std::string const &lib_path)
 {
+    std::cout << lib_path << std::endl;
     this->handle = dlopen(lib_path.c_str(), RTLD_LAZY);
 
     if (this->handle == NULL)
