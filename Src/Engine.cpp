@@ -20,16 +20,23 @@ Engine::~Engine()
 {
     delete this->froot;
     delete this->s_froot;
-    for (unsigned int y = 0; y < this->win_y + 2; y++)
+
+    if (this->map != nullptr)
     {
-        delete this->map[y];
+        for (unsigned int y = 0; y < this->win_y + 2; y++)
+        {
+            if (this->map[y] != NULL)
+                delete this->map[y];
+        }
+        delete[ ] this->map;
     }
 
-    delete[ ] this->map;
-
-    for (unsigned int count = 0; count < this->snek.size(); count++)
+    if (this->snek.size() > 0)
     {
-        delete this->snek[count];
+        for (unsigned int count = 0; count < this->snek.size(); count++)
+        {
+            delete this->snek[count];
+        }
     }
 }
 
@@ -172,31 +179,24 @@ void Engine::user_input(int argc, char **argv)
                     this->win_y = atoi(argv[count]);
             }
             else
-            {
-                std::cerr << "Invalid Arguments" << std::endl;
-            }
+                throw ("Input Error: \"Invalid Arguments\"");
         }
     }
     else
-    {
-        std::cerr << "Invalid Arguments" << std::endl;
-    }
+        throw ("Input Error: \"No Arguments\"");
 }
 
 void Engine::init_map()
 {
     this->map = new char * [this->win_y + 2];
 
-    if (this->map == NULL)
-    {
-        std::cerr << "Map Not allocated" << std::endl;
-        return ;
-    }
+    if (this->map == nullptr)
+        throw ("Memory Not Allocated: Bad Alloc.");
 
 	for (unsigned int tmp_y = 0; tmp_y < (this->win_y + 2); tmp_y++)
 	{
 		this->map[tmp_y] = new char[this->win_x + 2];
-        if (this->map[tmp_y] != NULL)
+        if (this->map[tmp_y] != nullptr)
         {
             for (unsigned int tmp_x = 0; tmp_x < this->win_x + 2; tmp_x++)
             {
@@ -204,10 +204,7 @@ void Engine::init_map()
             }
         }
         else
-        {
-            std::cerr << "Map Not allocated" << std::endl;
-            return ;
-        }
+            throw ("Memory Not Allocated: Bad Alloc.");
 	}
 
     for (unsigned int tmp_y = 0; tmp_y < (this->win_y + 2); tmp_y++)
@@ -231,6 +228,8 @@ void Engine::create_snek()
     for (unsigned int count = 0; count < 4; count++)
     {
         this->snek.push_back(new Snek((this->win_x / 2), ((this->win_y / 2) + count), false, 1));
+        if (this->snek[count] == nullptr)
+            throw ("Memory Not Allocated: Bad Alloc.");
         if (count == 0)
             this->snek[count]->SetIsHed(true);
     }
@@ -240,11 +239,14 @@ void Engine::init(int argc, char **argv)
 {
     this->froot = new food(0, 0, false);
     this->s_froot = new food(0, 0, false);
+    if (this->froot == nullptr || this->s_froot == nullptr)
+        throw ("Memory Not Allocated: Bad Alloc.");
     this->game_state = false;
     this->steps = 0;
     this->snek_dir = 1;
-    this->win_x = DEFAULT_WIN_X;
-    this->win_y = DEFAULT_WIN_Y;
+    this->map = nullptr;
+    this->win_x = 0;
+    this->win_y = 0;
     this->current_lib = 5;
     this->pause = false;
     this->last_pressed = 0;
@@ -380,17 +382,14 @@ void Engine::load_lib(std::string const &lib_path)
     this->handle = dlopen(lib_path.c_str(), RTLD_LAZY);
 
     if (this->handle == NULL)
-    {
-        std::cout << "ITS NULL" << std::endl;
-        return ;
-    }
+        throw ("Load Error: \"Dynamic library cannot be opened\"");
+
     // load the symbols
     create_t* create_lib = (create_t *) dlsym(this->handle, "create");
+
     const char* dlsym_error = dlerror();
-    if (dlsym_error) {
-        std::cerr << "Cannot load symbol create: " << dlsym_error << '\n';
-        return ;
-    }
+    if (dlsym_error)
+        throw (dlsym_error);
 
     // create an instance of the class
     this->lib = create_lib();
@@ -404,13 +403,10 @@ void Engine::load_lib(std::string const &lib_path)
 void Engine::close_lib()
 {
     destroy_t* destroy_lib = (destroy_t*) dlsym(this->handle, "destroy");
+
     const char* dlsym_error = dlerror();
-    dlsym_error = dlerror();
     if (dlsym_error)
-    {
-        std::cerr << "Cannot load symbol destroy: " << dlsym_error << '\n';
-        return ;
-    }
+        throw (dlsym_error);
 
     destroy_lib(this->lib);
 

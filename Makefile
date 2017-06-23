@@ -31,6 +31,8 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+	make -C ./ncurses/ re
+	make -C ./sdl/ re
 
 lib:
 	make -C ./ncurses/

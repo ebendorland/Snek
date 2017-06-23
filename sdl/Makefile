@@ -2,7 +2,9 @@ CLANG =	clang++
 
 NAME = sdl.so
 
-CFLAGS =
+CFLAGS = -Wall -Werror -Wextra
+
+C++_TYPE = -std=c++11
 
 SDL_lIBS = $(shell sdl2-config --libs)
 
@@ -17,7 +19,7 @@ SRC = $(SRC_PATH)libs.cpp sdl.cpp
 OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp
-	$(CLANG) -c $(CFLAGS) $(SDL_CFLAGS)  -fpic $< -o $@
+	$(CLANG) -c $(C++_TYPE) $(CFLAGS) $(SDL_CFLAGS) -fpic $< -o $@
 
 all: $(NAME)
 

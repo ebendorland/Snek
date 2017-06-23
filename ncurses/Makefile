@@ -2,7 +2,9 @@ CLANG =	clang++
 
 NAME = ncurses.so
 
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra
+
+C++_TYPE = -std=c++11
 
 NCURSES = -lncurses
 
@@ -15,7 +17,7 @@ SRC = $(SRC_PATH)libs.cpp ncurses.cpp
 OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp
-	$(CLANG) -c $(CFLAGS) -fpic $< -o $@
+	$(CLANG) -c $(C++_TYPE) $(CFLAGS) -fpic $< -o $@
 
 all: $(NAME)
 

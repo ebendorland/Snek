@@ -3,8 +3,8 @@ Still To DO:
 Error Handling Ncurses
 Error Handling SDL
 Error Handling SFML
-Error Handling Engine
-Error Handling Dynamic Libs
+Error Handling Engine : DONE
+Error Handling Dynamic Libs : DONE
 
 
 Add Score Ncurses : Done
