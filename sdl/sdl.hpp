@@ -25,13 +25,25 @@ class sdl : public dynamic_libs
         //display score (create a texture using ttf)
         TTF_Font *score;
         SDL_Surface *textSurface;
-        SDL_Colour col = { 23, 45, 34, 255};
+        SDL_Colour col;
         SDL_Texture *text;
 
     public:
+        sdl();
+        sdl(unsigned int tmp_x, unsigned int tmp_y);
+        sdl(sdl const &obj);
         ~sdl();
+
+        sdl &operator=(sdl const &obj);
+
         bool init(unsigned int &maxX, unsigned int &maxY);
         void render(char **map, unsigned int &score, bool &pause);
         int input(int &dir, int &lib);
         int create_score_texture(unsigned int &score);
+
+        void SetX(int tmp);
+        void SetY(int tmp);
+
+        int GetY() const;
+        int GetX() const;
 };

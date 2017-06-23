@@ -10,6 +10,39 @@ extern "C" void destroy(dynamic_libs *obj)
     delete obj;
 }
 
+sdl::sdl()
+{
+    this->max_x = 0;
+    this->max_y = 0;
+    this->rand = 0;
+
+    //window
+    this->window = NULL;
+    this->renderer = NULL;
+
+    //display score (create a texture using ttf)
+    this->score = NULL;
+    this->textSurface = NULL;
+
+    this->col.r = 23;
+    this->col.g = 45;
+    this->col.b = 34;
+    this->col.a = 255;
+
+    this->text = NULL;
+}
+
+sdl::sdl(unsigned int tmp_x, unsigned int tmp_y)
+{
+    this->max_x = tmp_x;
+    this->max_y = tmp_y;
+}
+
+sdl::sdl(sdl const &obj)
+{
+    *this = obj;
+}
+
 sdl::~sdl()
 {
     SDL_DestroyRenderer(this->renderer);
@@ -22,6 +55,14 @@ sdl::~sdl()
     this->text = NULL;
 
 	SDL_Quit();
+}
+
+sdl &sdl::operator=(sdl const &obj)
+{
+    this->max_x = obj.GetX();
+    this->max_y = obj.GetY();
+
+    return (*this);
 }
 
 bool sdl::init(unsigned int &maxX,unsigned int &maxY)
@@ -83,7 +124,7 @@ int sdl::create_score_texture(unsigned int &score)
     SDL_FreeSurface(this->textSurface);
     this->textSurface = NULL;
 
-    return (tmp.length() / 2);
+    return ((tmp.length() / 2) - 1);
 }
 
 void sdl::render(char **map, unsigned int &score, bool &pause)
@@ -187,3 +228,9 @@ int sdl::input(int &dir, int &lib)
     }
     return(dir);
 }
+
+void sdl::SetX(int tmp) { this->max_x = tmp; }
+void sdl::SetY(int tmp) { this->max_y = tmp; }
+
+int sdl::GetY() const { return (this->max_x); }
+int sdl::GetX() const { return (this->max_y); }

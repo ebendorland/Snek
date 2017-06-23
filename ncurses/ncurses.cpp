@@ -7,9 +7,41 @@ extern "C" dynamic_libs *create()
 
 extern "C" void destroy(dynamic_libs *obj)
 {
-    endwin();
     delete obj;
 }
+
+ncurses::ncurses()
+{
+    this->max_x = 0;
+    this->max_y = 0;
+    this->stdscr_x = 0;
+    this->stdscr_y = 0;
+}
+
+ncurses::ncurses(unsigned int tmp_x, unsigned int tmp_y)
+{
+    this->max_x = tmp_x;
+    this->max_y = tmp_y;
+}
+
+ncurses::ncurses(ncurses const &obj)
+{
+    *this = obj;
+}
+
+ncurses::~ncurses()
+{
+    endwin();
+}
+
+ncurses &ncurses::operator=(ncurses const &obj)
+{
+    this->max_x = obj.GetX();
+    this->max_y = obj.GetY();
+
+    return (*this);
+}
+
 
 bool ncurses::init(unsigned int &maxX,unsigned int &maxY)
 {
@@ -101,3 +133,9 @@ int ncurses::input(int &dir, int &lib)
     }
     return (dir);
 }
+
+void ncurses::SetX(int tmp) { this->max_x = tmp; }
+void ncurses::SetY(int tmp) { this->max_y = tmp; }
+
+int ncurses::GetY() const { return (this->max_x); }
+int ncurses::GetX() const { return (this->max_y); }
