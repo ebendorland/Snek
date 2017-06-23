@@ -13,24 +13,61 @@ extern "C" void destroy(dynamic_libs *obj)
 sdl::~sdl()
 {
     SDL_DestroyRenderer(this->renderer);
+    this->renderer = NULL;
+
 	SDL_DestroyWindow(this->window);
+    this->window = NULL;
+
     SDL_DestroyTexture(this->text);
+    this->text = NULL;
+
 	SDL_Quit();
 }
 
-void sdl::init(unsigned int &maxX,unsigned int &maxY)
+bool sdl::init(unsigned int &maxX,unsigned int &maxY)
 {
      this->max_x = maxX;
      this->max_y = maxY;
-     TTF_Init();
-     SDL_Init( SDL_INIT_EVERYTHING );
+
+     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+     {
+        std::cout << "SDL Error: \"SDL_Init() failed.\"" << std::endl;
+        return (true);
+     }
+
+     if (TTF_Init() < 0)
+     {
+         std::cout << "SDL Error: \"TTF_Init() failed.\"" << std::endl;
+         return (true);
+     }
+
      SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
+
      this->window = SDL_CreateWindow( "Snek", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, (maxX + 2) * SCALE, (maxY + 2) * SCALE, SDL_WINDOW_SHOWN );
+     if (this->window == NULL)
+     {
+         std::cout << "SDL Error: \"SDL_CreateWindow() failed.\"" << std::endl;
+         return (true);
+     }
+
      this->renderer = SDL_CreateRenderer( this->window, -1, SDL_RENDERER_ACCELERATED );
+     if (this->renderer == NULL)
+     {
+         std::cout << "SDL Error: \"SDL_CreateRenderer() failed.\"" << std::endl;
+         return (true);
+     }
+
      SDL_RenderSetLogicalSize( this->renderer, (this->max_x + 2) * SCALE, (this->max_y + 2) * SCALE );
      SDL_SetRenderDrawColor( this->renderer, 0, 0, 0, 255 );
 
      this->score = TTF_OpenFont("LemonMilk.otf", 29);
+     if (this->score == NULL)
+     {
+         std::cout << "SDL Error: \"TTF_OpenFont() failed.\"" << std::endl;
+         return (true);
+     }
+
+     return (false);
 }
 
 int sdl::create_score_texture(unsigned int &score)
@@ -49,8 +86,9 @@ int sdl::create_score_texture(unsigned int &score)
     return (tmp.length() / 2);
 }
 
-void sdl::render(char **map, unsigned int &score)
+void sdl::render(char **map, unsigned int &score, bool &pause)
 {
+    pause = false;
     this->rand = create_score_texture(score);
 	SDL_SetRenderDrawColor(this->renderer, 23, 23, 23, 255);
 	SDL_RenderClear( this->renderer );

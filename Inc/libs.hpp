@@ -6,8 +6,8 @@ class dynamic_libs
         dynamic_libs() {};
         virtual ~dynamic_libs() {};
 
-        virtual void init(unsigned int &maxX,unsigned int &maxY) = 0;
-        virtual void render(char **map, unsigned int &score) = 0;
+        virtual bool init(unsigned int &maxX,unsigned int &maxY) = 0;
+        virtual void render(char **map, unsigned int &score, bool &pause) = 0;
         virtual int input(int &dir, int &lib) = 0;
 };
 

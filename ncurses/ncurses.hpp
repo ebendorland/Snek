@@ -13,7 +13,7 @@ class ncurses : public dynamic_libs
         int stdscr_y;
 
     public:
-        void init(unsigned int &maxX, unsigned int &maxY);
-        void render(char **map, unsigned int &score);
+        bool init(unsigned int &maxX, unsigned int &maxY);
+        void render(char **map, unsigned int &score, bool &pause);
         int input(int &dir, int &lib);
 };

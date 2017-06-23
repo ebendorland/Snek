@@ -1,7 +1,7 @@
 Still To DO:
 
-Error Handling Ncurses
-Error Handling SDL
+Error Handling Ncurses : DONE
+Error Handling SDL : DONE
 Error Handling SFML
 Error Handling Engine : DONE
 Error Handling Dynamic Libs : DONE

@@ -11,11 +11,17 @@ extern "C" void destroy(dynamic_libs *obj)
     delete obj;
 }
 
-void ncurses::init(unsigned int &maxX,unsigned int &maxY)
+bool ncurses::init(unsigned int &maxX,unsigned int &maxY)
 {
+    initscr();
+
+    getmaxyx(stdscr, this->max_y, this->max_x);
+    if (this->stdscr_y < 50 || this->stdscr_x < 50)
+        mvprintw(this->stdscr_y / 2, (this->stdscr_x / 2) - 15,"Please enlarge terminal window");
+
     this->max_y = maxY;
     this->max_x = maxX;
-    initscr();
+
 	start_color();
 	init_pair(1, COLOR_RED, COLOR_BLACK);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
@@ -28,12 +34,22 @@ void ncurses::init(unsigned int &maxX,unsigned int &maxY)
     nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
     curs_set(FALSE);
+
+    return (false);
 }
 
-void ncurses::render(char **map, unsigned int &score)
+void ncurses::render(char **map, unsigned int &score, bool &pause)
 {
     clear();
+
     getmaxyx(stdscr, this->stdscr_y, this->stdscr_x);
+    if (this->stdscr_y < 50 || this->stdscr_x < 50)
+    {
+        mvprintw(this->stdscr_y / 2, (this->stdscr_x / 2) - 15,"Please enlarge terminal window");
+        pause = true;
+        return ;
+    }
+
     for (int tmp_y = 0; tmp_y < (this->max_y + 2); tmp_y++)
     {
         for (int tmp_x = 0; tmp_x < this->max_x + 2; tmp_x++)

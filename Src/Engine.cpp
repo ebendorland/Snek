@@ -184,6 +184,9 @@ void Engine::user_input(int argc, char **argv)
     }
     else
         throw ("Input Error: \"No Arguments\"");
+
+    if ((this->win_y < 30 || this->win_y > 45) || (this->win_x < 30 || this->win_x > 45))
+        throw ("Input Error: \"Invalid map size (30 - 45).\"");
 }
 
 void Engine::init_map()
@@ -249,7 +252,6 @@ void Engine::init(int argc, char **argv)
     this->win_y = 0;
     this->current_lib = 5;
     this->pause = false;
-    this->last_pressed = 0;
     this->lib_closed = true;
     this->score = 0;
     user_input(argc, argv);
@@ -320,17 +322,11 @@ void Engine::change_lib(int &ret_tmp)
 {
     if (ret_tmp == 9)
     {
-        if (this->last_pressed != 9)
-        {
-            this->pause = !this->pause;
-            this->last_pressed = ret_tmp;
-        }
+        this->pause = !this->pause;
         return ;
     }
     else
         this->current_lib = ret_tmp;
-
-    this->last_pressed = ret_tmp;
 
     close_lib();
     switch (this->current_lib)
@@ -369,7 +365,7 @@ void Engine::game_loop()
             this->steps += 1;
         }
         if (this->game_state == true)
-            this->lib->render(this->map, this->score);
+            this->lib->render(this->map, this->score, this->pause);
     	usleep(70000);
 	}
 
@@ -394,7 +390,8 @@ void Engine::load_lib(std::string const &lib_path)
     // create an instance of the class
     this->lib = create_lib();
 
-    this->lib->init(this->win_x, this->win_y);
+    if (this->lib->init(this->win_x, this->win_y))
+        throw ("library initialization Error: \"failed.\"");
 
     this->lib_closed = false;
 

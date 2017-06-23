@@ -30,8 +30,8 @@ class sdl : public dynamic_libs
 
     public:
         ~sdl();
-        void init(unsigned int &maxX, unsigned int &maxY);
-        void render(char **map, unsigned int &score);
+        bool init(unsigned int &maxX, unsigned int &maxY);
+        void render(char **map, unsigned int &score, bool &pause);
         int input(int &dir, int &lib);
         int create_score_texture(unsigned int &score);
 };

@@ -34,7 +34,7 @@ re: fclean all
 	make -C ./ncurses/ re
 	make -C ./sdl/ re
 
-lib:
+libs:
 	make -C ./ncurses/
 	make -C ./sdl/
 
