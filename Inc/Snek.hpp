@@ -10,9 +10,9 @@ class Snek
         unsigned int snek_y;
         bool is_hed;
         unsigned int part_dir;
+        Snek();
 
     public:
-        Snek();
         Snek(unsigned int x, unsigned int y, bool tmp, unsigned int dir);
         Snek(Snek const &obj);
         ~Snek();

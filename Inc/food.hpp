@@ -8,11 +8,14 @@ class food
         unsigned int x;
         unsigned int y;
         bool is_food;
+        food();
 
     public:
-        food();
         food(unsigned int tmp_x, unsigned int tmp_y, bool tmp);
+        food(food const &obj);
         ~food();
+
+        food &operator=(food const &obj);
 
         void SetX( unsigned int tmp_x);
         void SetY( unsigned int tmp_y);

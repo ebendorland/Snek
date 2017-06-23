@@ -2,7 +2,17 @@
 
 Engine::Engine()
 {
-
+    this->win_x = 0;
+    this->win_y = 0;
+    this->steps = 0;
+    this->snek_dir = 0;
+    this->current_lib = 0;
+    this->pause = false;
+    this->score = 0;
+    this->lib_closed = true;
+    this->map = nullptr;
+    this->handle = NULL;
+    this->game_state = false;
 }
 
 Engine::Engine(unsigned int win_X, unsigned int win_Y)
@@ -11,10 +21,10 @@ Engine::Engine(unsigned int win_X, unsigned int win_Y)
     this->win_y = win_Y;
 }
 
-/*Engine::Engine(Engine const &obj)
+Engine::Engine(Engine const &obj)
 {
-
-}*/
+    *this = obj;
+}
 
 Engine::~Engine()
 {
@@ -40,10 +50,18 @@ Engine::~Engine()
     }
 }
 
-/*Engine &Engine::operator=(Engine const &obj)
+Engine &Engine::operator=(Engine const &obj)
 {
+    this->win_x = obj.GetWinX();
+    this->win_y = obj.GetWinY();
+    this->steps = obj.GetSteps();
+    this->snek_dir = obj.GetSnekDir();
+    this->current_lib = obj.GetCurrentLib();
+    this->pause = obj.GetPause();
+    this->score = obj.GetScore();
+
     return (*this);
-}*/
+}
 
 int Engine::check_digit(char *str)
 {
@@ -244,16 +262,8 @@ void Engine::init(int argc, char **argv)
     this->s_froot = new food(0, 0, false);
     if (this->froot == nullptr || this->s_froot == nullptr)
         throw ("Memory Not Allocated: Bad Alloc.");
-    this->game_state = false;
-    this->steps = 0;
     this->snek_dir = 1;
-    this->map = nullptr;
-    this->win_x = 0;
-    this->win_y = 0;
     this->current_lib = 5;
-    this->pause = false;
-    this->lib_closed = true;
-    this->score = 0;
     user_input(argc, argv);
     load_lib(PATH_NCURSES);
     create_snek();
@@ -412,3 +422,20 @@ void Engine::close_lib()
 
     this->lib_closed = true;
 }
+
+//Dear Marker: Please excuse this mess.
+void Engine::SetSteps(int tmp) { this->steps = tmp; }
+void Engine::SetSnekDir(int tmp) { this->snek_dir = tmp; }
+void Engine::SetCurrentLib(int tmp) { this->current_lib = tmp; }
+void Engine::SetPause(bool tmp) { this->pause = tmp; }
+void Engine::SetScore(unsigned int tmp) { this->score = tmp; }
+void Engine::SetWinX(unsigned int tmp) { this->win_x = tmp; }
+void Engine::SetWinY(unsigned int tmp) { this->win_y = tmp; }
+
+int Engine::GetSteps() const { return (this->steps); }
+int Engine::GetSnekDir() const { return (this->snek_dir); }
+int Engine::GetCurrentLib() const { return (this->current_lib); }
+bool Engine::GetPause() const { return (this->pause); }
+unsigned int Engine::GetScore() const { return (this->score); }
+unsigned int Engine::GetWinX() const { return (this->win_x); }
+unsigned int Engine::GetWinY() const { return (this->win_y); }

@@ -40,10 +40,10 @@ class Engine
     public:
         Engine();
         Engine(unsigned int win_X, unsigned int win_Y);
-        //Engine(Engine const &obj);
+        Engine(Engine const &obj);
         ~Engine();
 
-        //Engine &operator=(Engine const &obj);
+        Engine &operator=(Engine const &obj);
 
         void user_input(int argc, char **argv);
         void init(int argc, char **argv);
@@ -59,4 +59,20 @@ class Engine
         void spawn_special_froot();
         void load_lib(std::string const &lib_path);
         void close_lib();
+
+        void SetSteps(int tmp);
+        void SetSnekDir(int tmp);
+        void SetCurrentLib(int tmp);
+        void SetPause(bool tmp);
+        void SetScore(unsigned int tmp);
+        void SetWinX(unsigned int tmp);
+        void SetWinY(unsigned int tmp);
+
+        int GetSteps() const;
+        int GetSnekDir() const;
+        int GetCurrentLib() const;
+        bool GetPause() const;
+        unsigned int GetScore() const;
+        unsigned int GetWinX() const;
+        unsigned int GetWinY() const;
 };

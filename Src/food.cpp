@@ -12,9 +12,23 @@ food::food(unsigned int tmp_x, unsigned int tmp_y, bool tmp)
     this->is_food = tmp;
 }
 
+food::food(food const &obj)
+{
+    *this = obj;
+}
+
 food::~food()
 {
     std::cout << "Food Expired" << std::endl;
+}
+
+food &food::operator=(food const &obj)
+{
+    this->x = obj.GetX();
+    this->y = obj.GetY();
+    this->is_food = obj.GetIsFood();
+
+    return (*this);
 }
 
 void food::SetX( unsigned int tmp_x)
